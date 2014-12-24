@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="callApp">
+<head>
+    <meta charset="utf-8">
+    <base href="/">
+    <title><$ title $></title>
+    <link rel="stylesheet" href="/css/call.css"/>
+</head>
+<body>
+
+<% include "./includes/header.html" %>
+
+<div class="row" style="margin-top: 50px;">
+    <div class="row-fluid">
+        <div id="content" class="col-lg-12">
+            <div ng-view></div>
+        </div>
+    </div>
+
+</div>
+<div id="loading">
+    <div></div>
+</div>
+
+<% include "./includes/footer.html" %>
+
+<script src="/js/call.js"></script>
+
+</body>
+</html>
