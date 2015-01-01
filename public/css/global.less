@@ -1,7 +1,7 @@
 @-webkit-keyframes fadeInLeft {
   0% {
     opacity: 0;
-    -webkit-transform: translateX(-20px);
+    -webkit-transform: translateX(-10px);
   }
 
   100% {
@@ -13,7 +13,7 @@
 @-moz-keyframes fadeInLeft {
   0% {
     opacity: 0;
-    -moz-transform: translateX(-20px);
+    -moz-transform: translateX(-10px);
   }
 
   100% {
@@ -25,7 +25,7 @@
 @-o-keyframes fadeInLeft {
   0% {
     opacity: 0;
-    -o-transform: translateX(-20px);
+    -o-transform: translateX(-10px);
   }
 
   100% {
@@ -37,7 +37,7 @@
 @keyframes fadeInLeft {
   0% {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-10px);
   }
 
   100% {
@@ -75,22 +75,14 @@
 }
 
 .data-list {
-  -webkit-transition: color 0.6s, background-color 0.3s;
-  -moz-transition: color 0.6s, background-color 0.3s;
-  -ms-transition: color 0.6s, background-color 0.3s;
-  transition: color 0.6s, background-color 0.3s;
 
   &.ng-enter {
-    -webkit-animation: fadeInLeft 1s;
-    -moz-animation: fadeInLeft 1s;
-    -ms-animation: fadeInLeft 1s;
-    animation: fadeInLeft 1s;
+    -webkit-animation: fadeInLeft 0.2s;
+    -moz-animation: fadeInLeft 0.2s;
+    -ms-animation: fadeInLeft 0.2s;
+    animation: fadeInLeft 0.2s;
   }
 
   &.ng-leave {
-    -webkit-animation: bounceOut 1s;
-    -moz-animation: bounceOut 1s;
-    -ms-animation: bounceOut 1s;
-    animation: bounceOut 1s;
   }
 }

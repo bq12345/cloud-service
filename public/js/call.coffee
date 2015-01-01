@@ -31,12 +31,14 @@ app.filter('dateFilter', ->
 
 window.CallCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $sce) ->
   $loading = $('#loading')
+  $scope.data = []
   $scope.calls = []
   $scope.checkIds = []
   $http.get('/api/calls').
   success((data) ->
     $loading.hide()
     $scope.calls = data.list
+    $scope.data = $scope.calls
     $scope.count = $scope.calls.length
   )
   $scope.check = (e)->
@@ -69,5 +71,16 @@ window.CallCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $s
     success((data)->
       console.log data
     )
+    return
+  $scope.type = (type)->
+    $scope.calls = $scope.data.filter((item)->
+      item.type is type
+    )
+    $scope.count = $scope.calls.length
+    return
+
+  $scope.refresh = ->
+    $scope.calls = $scope.data
+    $scope.count = $scope.calls.length
     return
 ]

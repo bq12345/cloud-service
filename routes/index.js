@@ -8,6 +8,15 @@ router.get('/', function (req, res) {
 router.get('/call.html', function (req, res) {
     res.render('call.html', {title: '通话记录', token: 123456});
 });
+
+router.get('/sms.html', function (req, res) {
+    res.render('sms.html', {title: '短信', token: 123456});
+});
+
+router.get('/photo.html', function (req, res) {
+    res.render('photo.html', {title: '相册', token: 123456});
+});
+
 router.partials = function (req, res) {
     var name = req.params.name;
     res.render('partials/' + name, {});

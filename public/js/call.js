@@ -43,11 +43,13 @@
     '$scope', '$http', '$location', function($scope, $http, $location, $sce) {
       var $loading;
       $loading = $('#loading');
+      $scope.data = [];
       $scope.calls = [];
       $scope.checkIds = [];
       $http.get('/api/calls').success(function(data) {
         $loading.hide();
         $scope.calls = data.list;
+        $scope.data = $scope.calls;
         return $scope.count = $scope.calls.length;
       });
       $scope.check = function(e) {
@@ -78,12 +80,22 @@
           return $header.removeClass('change');
         }
       };
-      return $scope["delete"] = function() {
+      $scope["delete"] = function() {
         $http.post('/api/post', {
           ids: $scope.checkIds
         }).success(function(data) {
           return console.log(data);
         });
+      };
+      $scope.type = function(type) {
+        $scope.calls = $scope.data.filter(function(item) {
+          return item.type === type;
+        });
+        $scope.count = $scope.calls.length;
+      };
+      return $scope.refresh = function() {
+        $scope.calls = $scope.data;
+        $scope.count = $scope.calls.length;
       };
     }
   ];

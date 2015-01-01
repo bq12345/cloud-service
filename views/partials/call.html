@@ -1,16 +1,15 @@
 <div class="main">
     <aside class="col-lg-2">
-        <div class="hr"></div>
         <div class="part" ng-click="refresh()"><h4>全部</h4></div>
         <div class="hr"></div>
-        <div class="part" ng-click="getByType(1)"><h4>未接来电</h4></div>
+        <div class="part" ng-click="type(1)"><h5>已接来电</h5></div>
         <div class="hr"></div>
-        <div class="part" ng-click="getByType(2)"><h4>已接来电</h4></div>
+        <div class="part" ng-click="type(2)"><h5>已拨电话</h5></div>
         <div class="hr"></div>
-        <div class="part" ng-click="getByType(3)"><h4>已拨电话</h4></div>
+        <div class="part" ng-click="type(3)"><h5>未接来电</h5></div>
         <div class="hr"></div>
         <div class="footer">
-            ©2014 BaiQiang
+            ©2015 BaiQiang
         </div>
     </aside>
 
@@ -39,9 +38,11 @@
                 <div class="name"><strong>{{call.name}}</strong></div>
                 <div class="number">{{call.number}}</div>
                 <div class="time">{{call.time}}</div>
-                <div class="duration"><date></date></div>
+                <div class="duration">
+                    <date></date>
+                </div>
             </li>
         </ul>
     </div>
 </div>
-<script src="/js/global.js"></script>
+<script src="/js/partials/call.js"></script>
