@@ -1,0 +1,28 @@
+<div class="main">
+
+    <aside class="col-lg-2">
+        <h3>便签</h3>
+
+        <div class="part" ng-repeat="n in notes">
+            <div class="hr"></div>
+            <div class="title"><title></title></div>
+
+        </div>
+    </aside>
+
+    <div class="col-lg-10 content">
+        <header>
+
+        </header>
+        <div class="content-header">
+            <div class="header-title">创建于
+                <date></date>
+            </div>
+        </div>
+
+        <textarea id="detail-text" class="content-text">
+            {{note.content}}
+        </textarea>
+    </div>
+</div>
+<script src="/js/partials/note.js"></script>

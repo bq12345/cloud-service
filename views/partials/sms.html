@@ -1,0 +1,46 @@
+<div class="main">
+
+    <aside class="col-lg-2">
+        <h3>联系人</h3>
+
+        <div class="part" ng-repeat="p in persons">
+            <div class="hr"></div>
+            <div><strong>{{p.name}}({{p.count}})</strong></div>
+
+        </div>
+    </aside>
+
+    <div class="col-lg-10 content">
+
+        <div class="content-header">
+            <div class="header-all check">
+                <div class="checkbox" ng-click="checkAll()"></div>
+            </div>
+            <div class="header-title">与{{sms[0].name}}的对话</div>
+            <div class="header-del">
+                <div>已选中{{checkIds.length}}条记录</div>
+                <div class="btn" ng-click="delete()">删除</div>
+            </div>
+        </div>
+
+        <ul class="list list-unstyled">
+            <li ng-repeat="msg in sms" class="data-list">
+                <div class="check">
+                    <div class="checkbox" data-id="{{msg.id}}" ng-click="check($event)"></div>
+                </div>
+                <div class="context-all context-{{msg.type}}">
+
+                    <em class="arrow"></em>
+
+                    <div>
+                        {{msg.content}}
+                    </div>
+                    <div class="context-time">
+                        <date></date>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="/js/partials/sms.js"></script>

@@ -51,4 +51,47 @@ router.get('/photos', function (req, res) {
     var data = Mock.mock(tlp);
     res.send(data);
 });
+
+router.get('/messages', function (req, res) {
+    var tlp = {
+        'count|1-100': 1,
+        'persons|1-50': [{
+            'count|1-10': 1,
+            'name': '@first'
+        }]
+    };
+    var data = Mock.mock(tlp);
+    res.send(data);
+});
+
+router.get('/messages.detail', function (req, res) {
+    var tlp = {
+        'count|1-100': 1,
+        'sms|1-20': [{
+            'id|+1': 1,
+            'name': '@first',
+            'number|1': [13488880000, 18822221111, 10086],
+            'content': '@sentence',
+            'date|+1': 1419834099609,
+            'type|1-2': 1
+        }]
+    };
+    var data = Mock.mock(tlp);
+    res.send(data);
+});
+
+
+router.get('/notes', function (req, res) {
+    var tlp = {
+        'count|1-100': 1,
+        'list|1-20': [{
+            'id|+1': 1,
+            'content': '@paragraph',
+            'date|+1': 1419834099609
+        }]
+    };
+    var data = Mock.mock(tlp);
+    res.send(data);
+});
+
 module.exports = router;

@@ -17,6 +17,13 @@ aside {
     cursor: pointer;
     padding-right: 20px;
     color: #666;
+    .title {
+      height: 30px;
+      padding-top: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     &:hover {
       text-decoration: none;
       color: #0f0f0f;
@@ -73,88 +80,34 @@ aside {
       clear: both;
     }
   }
-  .change {
-    .header-name, .header-title {
-      display: none;
-    }
-    .header-del {
-      display: block;
-    }
+  .content-text {
+    text-indent: 15px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    resize: none;
+    line-height: 2;
   }
-  .list {
-    overflow: scroll;
-    background: #f7f7f7;
-    li {
-      height: 90px;
-      width: 100%;
-      margin: 35px 0;
-      div {
-        margin: 10px 5px 4px 15px;
-      }
-      .check {
-        width: 40px;
-      }
-      .context-all {
-        width: 50%;
-        margin: 0 40px 0 80px;
-        border: #CCC 1px solid;
-        padding: 5px 10px;
-        position: relative;
-        em {
-          width: 6px;
-          height: 9px;
-          line-height: 0;
-          font-size: 0;
-          position: absolute;
-          background: url("/images/icon.gif");
-          top: 11px;
-        }
-        .context-time {
-          text-align: right;
-          color: #999;
-          line-height: 20px;
-          height: 20px;
-        }
+}
 
-      }
-      .context-1 {
-        float: left;
-        background: #fff;
-        em {
-          left: -6px;
-          background-position: 0 -160px;
-        }
-      }
-      .context-2 {
-        float: right;
-        background: #eee;
-        em {
-          right: -6px;
-          background-position: -6px -160px;
-        }
-      }
-    }
-  }
-
-  .check {
-    cursor: pointer;
+.check {
+  cursor: pointer;
+  width: 30px;
+  position: relative;
+  .checkbox {
+    margin: 0;
+    position: absolute;
     width: 30px;
-    position: relative;
-    .checkbox {
-      margin: 0;
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      left: 5px;
-      display: inline-block;
-      background-image: url("/images/icon.png");
-      background-repeat: no-repeat;
-      outline: none;
-      font-size: 16px;
-      overflow: hidden;
-      background-position: 0 -60px;
-    }
-
+    height: 30px;
+    left: 5px;
+    display: inline-block;
+    background-image: url("/images/icon.png");
+    background-repeat: no-repeat;
+    outline: none;
+    font-size: 16px;
+    overflow: hidden;
+    background-position: 0 -60px;
   }
 }
 

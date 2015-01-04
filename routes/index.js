@@ -17,6 +17,10 @@ router.get('/photo.html', function (req, res) {
     res.render('photo.html', {title: '相册', token: 123456});
 });
 
+router.get('/note.html', function (req, res) {
+    res.render('note.html', {title: '便签', token: 123456});
+});
+
 router.partials = function (req, res) {
     var name = req.params.name;
     res.render('partials/' + name, {});
