@@ -46,6 +46,21 @@
         $(e.target).toggleClass('on');
         $scope.calculate();
       };
+      $scope.peopleCheck = function(e) {
+        var $checks, $options;
+        $(e.target).toggleClass('on');
+        $checks = $('.checkbox.on', 'aside');
+        $scope.checkPeoples = $.map($checks, function(item) {
+          return $(item).data('id');
+        });
+        console.log($scope.checkPeoples);
+        $options = $('.options');
+        if ($scope.checkPeoples.length > 0) {
+          $options.fadeIn();
+        } else {
+          $options.fadeOut();
+        }
+      };
       $scope.calculate = function() {
         var $checks, $header;
         $checks = $('.checkbox.on', '.content');

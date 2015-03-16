@@ -20,6 +20,29 @@ aside {
     &:hover {
       text-decoration: none;
       color: #0f0f0f;
+      .checkbox{
+        background-position: 0 -65px;
+      }
+    }
+    .checkbox {
+      margin: 0;
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      left: 5px;
+      display: inline-block;
+      background-image: url("/images/icon.png");
+      background-repeat: no-repeat;
+      outline: none;
+      font-size: 16px;
+      overflow: hidden;
+      background-position: -120px -65px;
+    }
+    .on{
+      background-position: -90px -65px !important;
+    }
+    strong{
+      margin-left: 20px;
     }
   }
   .hr {

@@ -41,6 +41,19 @@ window.SmsCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $sc
     $(e.target).toggleClass('on')
     $scope.calculate()
     return
+  $scope.peopleCheck = (e)->
+    $(e.target).toggleClass('on')
+    $checks = $('.checkbox.on', 'aside')
+    $scope.checkPeoples = $.map($checks, (item)->
+      $(item).data('id')
+    )
+    console.log $scope.checkPeoples
+    $options = $('.options')
+    if $scope.checkPeoples.length > 0
+      $options.fadeIn()
+    else
+      $options.fadeOut()
+    return
   $scope.calculate = ->
     $checks = $('.checkbox.on', '.content')
     $scope.checkIds = $.map($checks, (item)->

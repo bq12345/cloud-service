@@ -57,7 +57,8 @@ router.get('/messages', function (req, res) {
         'count|1-100': 1,
         'persons|1-50': [{
             'count|1-10': 1,
-            'name': '@first'
+            'name': '@first',
+            'id|+1': 1
         }]
     };
     var data = Mock.mock(tlp);
