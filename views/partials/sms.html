@@ -8,6 +8,7 @@
             <div> <div class="checkbox" data-id="{{p.id}}" ng-click="peopleCheck($event)"></div><strong>{{p.name}}({{p.count}})</strong></div>
 
         </div>
+
     </aside>
 
     <div class="col-lg-10 content">
@@ -41,6 +42,16 @@
                 </div>
             </li>
         </ul>
+    </div>
+
+    <div class="col-lg-10 options">
+        <header>当前选择了{{checkPeoples.length}}个会话</header>
+        <div class="list">{{}}
+            <button class="btn">删除</button>
+        </div>
+       <footer>
+           ©2014 BaiQiang
+       </footer>
     </div>
 </div>
 <script src="/js/partials/sms.js"></script>

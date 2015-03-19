@@ -6,13 +6,13 @@
     aside = $('aside');
     windowHeight = body.height();
     height = 50 + 50;
-    $('.content .list').height(windowHeight - height);
+    $('.col-lg-10 .list').height(windowHeight - height);
     aside.height(windowHeight - 70);
     return $(body).resize(function() {
       var newHeight;
       newHeight = body.height();
       aside.height(newHeight - 70);
-      $('.content .list').height(newHeight - height);
+      $('.col-lg-10 .list').height(newHeight - height);
     });
   });
 

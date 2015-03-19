@@ -15,6 +15,18 @@ app.directive('date', ->
   template: '<span>{{note.date | dateFilter}}</span>'
   }
 )
+app.directive('animateOnChange', ($animate) ->
+  (scope, elem, attr) ->
+    scope.$watch(attr.animateOnChange, (nv, ov) ->
+      console.log nv
+      console.log ov
+      if (nv != ov)
+        c = if nv > ov then 'change-up' else 'change'
+        $animate.addClass(elem, c, ->
+          $animate.removeClass(elem, c)
+        )
+    )
+)
 
 app.directive('title', ->
   {
@@ -44,6 +56,10 @@ window.NoteCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $s
   $scope.check = (e)->
     $(e.target).toggleClass('on')
     $scope.calculate()
+    return
+  $scope.showNote = (e)->
+    console.log e
+    $scope.note = $scope.notes[e]
     return
   $scope.calculate = ->
     $checks = $('.checkbox.on', '.content')

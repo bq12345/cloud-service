@@ -47,7 +47,7 @@
         $scope.calculate();
       };
       $scope.peopleCheck = function(e) {
-        var $checks, $options;
+        var $checks, $content, $options;
         $(e.target).toggleClass('on');
         $checks = $('.checkbox.on', 'aside');
         $scope.checkPeoples = $.map($checks, function(item) {
@@ -55,10 +55,13 @@
         });
         console.log($scope.checkPeoples);
         $options = $('.options');
+        $content = $('.content');
         if ($scope.checkPeoples.length > 0) {
+          $content.fadeOut();
           $options.fadeIn();
         } else {
           $options.fadeOut();
+          $content.fadeIn();
         }
       };
       $scope.calculate = function() {

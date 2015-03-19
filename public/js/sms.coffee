@@ -49,10 +49,13 @@ window.SmsCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $sc
     )
     console.log $scope.checkPeoples
     $options = $('.options')
+    $content = $('.content')
     if $scope.checkPeoples.length > 0
+      $content.fadeOut()
       $options.fadeIn()
     else
       $options.fadeOut()
+      $content.fadeIn()
     return
   $scope.calculate = ->
     $checks = $('.checkbox.on', '.content')

@@ -5,7 +5,7 @@
 
         <div class="part" ng-repeat="n in notes">
             <div class="hr"></div>
-            <div class="title"><title></title></div>
+            <div class="title" ng-click="showNote($index)"><title></title></div>
 
         </div>
     </aside>
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <textarea id="detail-text" class="content-text">
+        <textarea id="detail-text" class="content-text" ng-animate="{show: 'fade-show', hide: 'fade-hide'}" ng-bind="note.content">
             {{note.content}}
         </textarea>
     </div>

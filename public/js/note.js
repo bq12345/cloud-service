@@ -21,6 +21,19 @@
     };
   });
 
+    app.directive('animateOnChange', function($animate) {
+        return function(scope, elem, attr) {
+            scope.$watch(attr.animateOnChange, function(nv,ov) {
+                if (nv!=ov) {
+                    var c = nv > ov?'change-up':'change';
+                    $animate.addClass(elem,c, function() {
+                        $animate.removeClass(elem,c);
+                    });
+                }
+            });
+        };
+    });
+
   app.directive('title', function() {
     return {
       restrict: 'E',
@@ -51,6 +64,10 @@
       $scope.check = function(e) {
         $(e.target).toggleClass('on');
         $scope.calculate();
+      };
+      $scope.showNote = function(e) {
+        console.log(e);
+        $scope.note = $scope.notes[e];
       };
       $scope.calculate = function() {
         var $checks, $header;
