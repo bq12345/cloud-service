@@ -5,7 +5,10 @@
 
         <div class="part" ng-repeat="p in persons">
             <div class="hr"></div>
-            <div> <div class="checkbox" data-id="{{p.id}}" ng-click="peopleCheck($event)"></div><strong>{{p.name}}({{p.count}})</strong></div>
+            <div>
+                <div class="checkbox" data-id="{{p.id}}" ng-click="peopleCheck($event)"></div>
+                <strong>{{p.name}}({{p.count}})</strong>
+            </div>
 
         </div>
 
@@ -49,9 +52,9 @@
         <div class="list">{{}}
             <button class="btn">删除</button>
         </div>
-       <footer>
-           ©2014 BaiQiang
-       </footer>
+        <footer>
+            ©2014 BaiQiang
+        </footer>
     </div>
 </div>
 <script src="/js/partials/sms.js"></script>

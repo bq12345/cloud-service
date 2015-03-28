@@ -15,18 +15,6 @@ app.directive('date', ->
   template: '<span>{{note.date | dateFilter}}</span>'
   }
 )
-app.directive('animateOnChange', ($animate) ->
-  (scope, elem, attr) ->
-    scope.$watch(attr.animateOnChange, (nv, ov) ->
-      console.log nv
-      console.log ov
-      if (nv != ov)
-        c = if nv > ov then 'change-up' else 'change'
-        $animate.addClass(elem, c, ->
-          $animate.removeClass(elem, c)
-        )
-    )
-)
 
 app.directive('title', ->
   {
@@ -41,9 +29,10 @@ app.filter('dateFilter', ->
     date = new Date(input)
     return  (date.getMonth() + 1) + '-' + date.getDay() + ' ' + date.getHours() + ':' + date.getMinutes()
 )
+$loading = $('#loading')
 
 window.NoteCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $sce) ->
-  $loading = $('#loading')
+  $loading.show()
   $scope.notes = []
   $scope.checkIds = []
   $http.get('/api/notes').
@@ -53,7 +42,7 @@ window.NoteCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $s
     $scope.note = $scope.notes[0]
   )
 
-  $scope.check = (e)->
+  $scope.noteCheck = (e)->
     $(e.target).toggleClass('on')
     $scope.calculate()
     return
@@ -62,16 +51,17 @@ window.NoteCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $s
     $scope.note = $scope.notes[e]
     return
   $scope.calculate = ->
-    $checks = $('.checkbox.on', '.content')
+    $checks = $('.checkbox.on', 'aside')
     $scope.checkIds = $.map($checks, (item)->
       $(item).data('id')
     )
-    console.log $scope.checkIds
-    $header = $('.content-header')
+    $scope.checkNotes = $scope.notes.filter((item)->
+      $scope.checkIds.indexOf(item.id) > -1
+    )
     if $scope.checkIds.length > 0
-      $header.fadeIn()
+      $scope.selected = true
     else
-      $header.fadeOut()
+      $scope.selected = false
   $scope.delete = ->
     $http.post('/api/post',
       ids: $scope.checkIds

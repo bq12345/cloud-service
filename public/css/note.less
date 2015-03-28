@@ -2,28 +2,25 @@
 @import "nav";
 @import "global";
 
-.fade-hide, .fade-show {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+.nav {
+  display: none;
 }
 
-.fade-hide {
-  opacity:1;
-}
-.fade-hide.fade-hide-active {
-  opacity:0;
+#container {
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  height: 100%;
+  flex-flow: row;
 }
 
-.fade-show {
-  opacity:0;
-}
-.fade-show.fade-show-active {
-  opacity:1;
+div {
+  width: 100%;
 }
 
 aside {
+  flex: 1;
+  overflow-x: hidden;
   overflow-y: scroll;
   background: #f7f7f7;
   position: relative;
@@ -34,13 +31,19 @@ aside {
     margin: 0;
   }
   .part {
-    padding-left: 20px;
+    padding-left: 10px;
     cursor: pointer;
     padding-right: 20px;
+    &:hover {
+      text-decoration: none;
+      color: #0f0f0f;
+      .checkbox {
+        background-position: 0 -65px;
+      }
+    }
     color: #666;
     .title {
-      height: 30px;
-      padding-top: 4px;
+      margin-left: 25px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -50,21 +53,22 @@ aside {
       color: #0f0f0f;
     }
   }
-  .hr {
-    width: 75%;
-    background: #ddd;
-    padding-right: 30px;
-    height: 1px;
-    margin: 8px 0 10px;
-  }
   &:first-child {
     padding-top: 20px;
   }
 }
 
 .content {
+  flex: 3;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
   overflow: hidden;
-  .content-header {
+  .header {
     background: #f7f7f7;
     width: 100%;
     height: 50px;
@@ -74,26 +78,15 @@ aside {
       padding-top: 5px;
       float: left;
     }
-    .header-title {
+    .title {
       line-height: 2;
     }
-    .header-del {
+    .del {
       display: none;
       div {
         width: 50%;
         cursor: pointer;
         margin: 0;
-      }
-      .btn {
-        height: 30px;
-        padding-bottom: 0;
-        text-align: center;
-        background: url("../images/btn-repeat.gif") repeat-x 0 -1px;
-        border: 1px solid #ddd;
-        outline: 0;
-        &:hover {
-          background: #fff;
-        }
       }
     }
     border-bottom: 1px solid #ddd;
@@ -101,7 +94,9 @@ aside {
       clear: both;
     }
   }
-  .content-text {
+
+  .text {
+    flex: 1;
     text-indent: 15px;
     width: 100%;
     padding: 10px;
@@ -110,69 +105,56 @@ aside {
     resize: none;
     line-height: 2;
   }
-
-}
-
-.check {
-  cursor: pointer;
-  width: 30px;
-  position: relative;
-  .checkbox {
-    margin: 0;
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    left: 5px;
-    display: inline-block;
-    background-image: url("/images/icon.png");
-    background-repeat: no-repeat;
-    outline: none;
-    font-size: 16px;
-    overflow: hidden;
-    background-position: 0 -60px;
+  .footer {
+    background: #f7f7f7;
+    width: 100%;
+    height: 50px;
   }
 }
 
-#loading {
-  position: fixed;
-  width: 100%;
+.batch-view {
+  flex: 3;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  overflow: hidden;
+  float: left;
   height: 100%;
-  top: 0;
-  background: #fff;
-  opacity: 0.5;
-  div {
-    position: absolute;
-    display: block;
-    z-index: 9999;
-    left: 50%;
-    top: 50px;
-    width: 40px;
-    height: 40px;
-    background: url("data:image/gif;base64,R0lGODlhHgAeAMQAAP////v7+/Pz8+/v7+vr6+fn5+Pj49vb29LS0s7OzsrKyra2tq6urqamppqamoqKin19fXV1dWVlZVlZWUVFRQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFEAAAACwFAAUAFAAUAAAFfiAgjqIyTQqprsBEURM7IlGEiC4sBoIQkBGJJFI6pQC9HlBIZCUFJJpNxvPJrtgs6fB4HLQBAiHwgEAeWkKhQCif02sC1wsW/7T4vMjQaBhkAgkJUCMNDg4NMgkKCgkkhogiBQsLBSKLjSR8fiILDAwLIgOCA1ieoHoAk5UyIQAh+QQFEAAAACwFAAUAFAAUAAAFdyAgjiISRQiprkAkSRE7Hs9ziC4sKtOkkA8I5FE6pQATCmUCFBJZySWJZpPxfLKsdksyNBoGLkAgADQcjgaXTD6n12wvWEwW2++ixSIbIBACJAsMDHssBAUFBIGDhQIJCWUAh4kqeiMJCgoJIn1/WpiaeAOPAzIhACH5BAUQAAAALAUABQAUABQAAAV5ICCO4vE8B6muwANBDzsaTWOILiwiUYSQDYejUTqlABGJJAIUElnJJYlmk/F8sqx2q1osuADFZKJYMBjf7YRCmZjR3HUb4AWLyeC8XpBICLICfyQJCgoJMoGBg4WHAAEEBAEiiYIiA30DIgQFBQQjilqbnXqOkJIsIQAh+QQFEAAAACwFAAUAFAAUAAAFdCAgjqLRNAaprkDjOA1LLsvowuLxPMfMMDWACSV6QCAPH1BmRKpoMoCOF61ar4JEQnBFRCKIhEKRuEYkkoiYbEZHBtpB94u42u+jAIEQkCkmEwokBAUFBDITFBQTg4WHIgJcIomLJHp8kJGSf4FVmpJ4kVEhACH5BAUQAAAALAUABQAUABQAAAV2ICCO47KQaCouDHOqopAkwtq+RtMYZKIoidIL0HA4Gr1fUFU8kgazASy3g1mvWFKAQAhkD4/HgVAoELIPCORBNqPVj233Gz5k73iSoAZDRCIIent8KRESEhGCeyIKExMKIoaIKIsiExQUEyJ+gFeXmXkAjY8wIQAh+QQFEAAAACwFAAUAFAAUAAAFeSAgjqKQJAKprkCiKAk7BgQRiC48LotKFAWCaHAaiBYMRm/0C8qQShLNJgPwqtistpTSGhoNg2DcxTYcjga5XD2nAePtN7yt2xWTiUJ2eDwOJBMUFBMyDxAQD4GDhQAIEREIIoeJJHh6IhESEhEifX9Ympx2jpCSLCEAIfkEBRAAAAAsBQAFABQAFAAABXggII5iQBABqa4AURQESwrC6MKikCT1SNOlUwqQUCgSs5+seFQBZYPdQEatWkmKyURxBSwWgAmFMrkuGIyFmGxGL7Lb7rdLrwMQkQhCZmg0DCQREhIRMg0ODg2Bg4UABw8PByKHiSR4eiIPEBAPIn1/VZqcdo+RMiEAIfkECRAAAAAsBQAFABQAFAAABXcgII6jIJBoKpqmOirTpKysGBBEQE4UNZUnEaFQIOx6P9WwSILJXLeca0qtkhCRCMIqSCQEEYkkYk0oFInwuHxOYLXWgXdgrdtHh8fjMF0sUA8QEA8uCwwMfyOBgyIGDQ0GIoaIJHl7Ig0ODg0jflWZm3cAjpAuIQA7") 50% 50% no-repeat;
+
+  header {
+    background: #f7f7f7;
+    width: 100%;
+    height: 50px;
+    order: 1;
   }
-}
-
-::-webkit-scrollbar-track-piece {
-  background-color: #fff;
-  -webkit-border-radius: 3px;
-}
-
-::-webkit-scrollbar {
-  width: 12px;
-  height: 10px
-}
-
-::-webkit-scrollbar-thumb {
-  height: 30px;
-  background-color: #999;
-  -webkit-border-radius: 7px;
-  outline: 2px solid #fff;
-  outline-offset: -2px;
-  border: 2px solid #fff
-}
-
-::-webkit-scrollbar-thumb:hover {
-  height: 30px;
-  background-color: #9f9f9f;
-  -webkit-border-radius: 8px
+  .list {
+    order: 2;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: auto;
+    position: relative;
+    .batch-list-item {
+      float: left;
+      margin: 1%;
+      width: 48%;
+      display: inline-block;
+      color: #ffffff;
+      background: #888888;
+      height: 150px;
+      border-radius: 5px;
+    }
+  }
+  footer {
+    order: 3;
+    background: #555555;
+    width: 100%;
+    height: 50px;
+  }
 }

@@ -92,7 +92,10 @@ router.get('/notes', function (req, res) {
         }]
     };
     var data = Mock.mock(tlp);
-    res.send(data);
+    setTimeout(function () {
+        res.send(data);
+    }, 2000);
+
 });
 
 module.exports = router;

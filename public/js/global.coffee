@@ -1,6 +1,7 @@
 $(->
   body = $(window)
   aside = $('aside')
+  main =
   windowHeight = body.height()
   height = 50 + 45 + 50
   $('.col-lg-10 .list').height(windowHeight - height)
