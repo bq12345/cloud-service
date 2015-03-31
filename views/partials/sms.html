@@ -1,60 +1,54 @@
-<div class="main">
+<aside>
+    <h3>联系人</h3>
 
-    <aside class="col-lg-2">
-        <h3>联系人</h3>
-
-        <div class="part" ng-repeat="p in persons">
-            <div class="hr"></div>
-            <div>
-                <div class="checkbox" data-id="{{p.id}}" ng-click="peopleCheck($event)"></div>
-                <strong>{{p.name}}({{p.count}})</strong>
-            </div>
-
+    <div class="part" ng-repeat="p in persons">
+        <div class="hr"></div>
+        <div>
+            <div class="checkbox {{p.checked}}" data-id="{{p.id}}" ng-click="personCheck($event,p)"></div>
+            <strong ng-click="smsShow(p)">{{p.name}}({{p.count}})</strong>
         </div>
 
-    </aside>
-
-    <div class="col-lg-10 content">
-
-        <div class="content-header">
-            <div class="header-all check">
-                <div class="checkbox" ng-click="checkAll()"></div>
-            </div>
-            <div class="header-title">与{{sms[0].name}}的对话</div>
-            <div class="header-del">
-                <div>已选中{{checkIds.length}}条记录</div>
-                <div class="btn" ng-click="delete()">删除</div>
-            </div>
-        </div>
-
-        <ul class="list list-unstyled">
-            <li ng-repeat="msg in sms" class="data-list">
-                <div class="check">
-                    <div class="checkbox" data-id="{{msg.id}}" ng-click="check($event)"></div>
-                </div>
-                <div class="context-all context-{{msg.type}}">
-
-                    <em class="arrow"></em>
-
-                    <div>
-                        {{msg.content}}
-                    </div>
-                    <div class="context-time">
-                        <date></date>
-                    </div>
-                </div>
-            </li>
-        </ul>
     </div>
 
-    <div class="col-lg-10 options">
-        <header>当前选择了{{checkPeoples.length}}个会话</header>
-        <div class="list">{{}}
-            <button class="btn">删除</button>
-        </div>
-        <footer>
-            ©2014 BaiQiang
-        </footer>
-    </div>
+</aside>
+
+<div class="content" ng-show="!selected">
+
+    <header>
+        与{{p.name}}的对话
+    </header>
+    <ul class="list list-unstyled">
+        <li ng-repeat="msg in sms" class="data-list">
+            <div class="context-all context-{{msg.type}}">
+                <em class="arrow"></em>
+
+                <div>
+                    {{msg.content}}
+                </div>
+                <div class="context-time">
+                    <date></date>
+                </div>
+                <div class="checkbox {{msg.checked}}" data-id="{{msg.id}}" ng-click="msgDelete(msg)"></div>
+            </div>
+        </li>
+    </ul>
 </div>
-<script src="/js/partials/sms.js"></script>
+
+<div class="options" ng-show="selected">
+    <header>当前选择了{{checkedPersons.length}}个会话</header>
+    <ul class="list list-unstyled">
+        <li ng-repeat="p in checkedPersons" class="data-list">
+            <p>
+                {{p.name}}
+            </p>
+
+            <p>
+                {{p.phone}}
+            </p>
+        </li>
+    </ul>
+    <footer>
+        <button class="btn" ng-click="batchDelete()">删除</button>
+        <button class="btn" ng-click="batchCancel()">取消</button>
+    </footer>
+</div>

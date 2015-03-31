@@ -58,6 +58,7 @@ router.get('/messages', function (req, res) {
         'persons|1-50': [{
             'count|1-10': 1,
             'name': '@first',
+            'phone|1': [13512345678, 18600000000],
             'id|+1': 1
         }]
     };
@@ -65,7 +66,7 @@ router.get('/messages', function (req, res) {
     res.send(data);
 });
 
-router.get('/messages.detail', function (req, res) {
+router.get('/messages/detail', function (req, res) {
     var tlp = {
         'count|1-100': 1,
         'sms|1-20': [{

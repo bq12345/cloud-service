@@ -3,8 +3,12 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    res.render('index.html', {title: '通讯录', items: [1, 2, 3]});
+    res.render('contact.html', {title: '通讯录', items: [1, 2, 3]});
 });
+router.get('/contact.html', function (req, res) {
+    res.render('contact.html', {title: '通讯录', items: [1, 2, 3]});
+});
+
 router.get('/call.html', function (req, res) {
     res.render('call.html', {title: '通话记录', token: 123456});
 });

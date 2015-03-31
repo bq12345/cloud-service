@@ -94,6 +94,7 @@ body {
 body {
   min-width: 1200px;
   min-height: 500px;
+  overflow: hidden;
 }
 .checkbox {
   margin: 0;

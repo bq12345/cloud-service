@@ -19,61 +19,73 @@ app.directive('date', ->
 app.filter('dateFilter', ->
   (input, param) ->
     date = new Date(input)
-
-    return  (date.getMonth() + 1) + '-' + date.getDay() + ' ' + date.getHours() + ':' + date.getMinutes()
+    return  (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes()
 )
-
+_loading = $('#loading')
 window.SmsCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $sce) ->
-  $loading = $('#loading')
+  _container = $('#container')
+  _loading.show()
   $scope.persons = []
   $scope.checkIds = []
   $http.get('/api/messages').
   success((data) ->
     $scope.persons = data.persons
+    $scope.p = $scope.persons[0]
   )
-  $http.get('/api/messages.detail').
+  $http.get('/api/messages/detail').
   success((data) ->
-    $loading.hide()
+    _loading.hide()
+    _container.css('opacity', 1)
     $scope.sms = data.sms
   )
-
-  $scope.check = (e)->
-    $(e.target).toggleClass('on')
-    $scope.calculate()
-    return
-  $scope.peopleCheck = (e)->
-    $(e.target).toggleClass('on')
-    $checks = $('.checkbox.on', 'aside')
-    $scope.checkPeoples = $.map($checks, (item)->
-      $(item).data('id')
+  #点击事件处理
+  $scope.smsShow = (p)->
+    $scope.p = p
+    $http.get('/api/messages/detail').
+    success((data) ->
+      $scope.sms = data.sms
     )
-    console.log $scope.checkPeoples
-    $options = $('.options')
-    $content = $('.content')
-    if $scope.checkPeoples.length > 0
-      $content.fadeOut()
-      $options.fadeIn()
+
+  $scope.personCheck = (e, p)->
+    if p.checked
+      p.checked = ''
     else
-      $options.fadeOut()
-      $content.fadeIn()
-    return
+      p.checked = 'on'
+    $scope.calculate()
   $scope.calculate = ->
-    $checks = $('.checkbox.on', '.content')
-    $scope.checkIds = $.map($checks, (item)->
-      $(item).data('id')
+    $scope.checkedPersons = $scope.persons.filter((item)->
+      item.checked
+    )
+    $scope.checkIds = $scope.checkedPersons.map((item)->
+      item.id
     )
     console.log $scope.checkIds
-    $header = $('.content-header')
     if $scope.checkIds.length > 0
-      $header.fadeIn()
+      $scope.selected = true
     else
-      $header.fadeOut()
-  $scope.delete = ->
-    $http.post('/api/post',
+      $scope.selected = false
+
+  #批处理页面
+  $scope.batchCancel = ->
+    if $scope.checkedPersons
+      $scope.checkedPersons.forEach((item)->
+        item.checked = ''
+      )
+    $scope.checkedAll = ''
+    $scope.selected = false
+  $scope.batchDelete = ->
+    $scope.batchCancel()
+    $http.post('/api/sms/deletes',
       ids: $scope.checkIds
     ).
     success((data)->
       console.log data
     )
-    return
+  #详情页处理
+  $scope.msgDelete = (msg)->
+    console.log msg
+    $http.get('/api/sms/delete').
+    success((data) ->
+      $scope.sms = data.sms
+    )
 ]

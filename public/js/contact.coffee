@@ -4,35 +4,13 @@
   @author baiqiang
   @version 1-0-0
 ###
-###
-                   _ooOoo_
-                  o8888888o
-                  88" . "88
-                  (| -_- |)
-                  O\  =  /O
-               ____/`---'\____
-             .'  \\|     |//  `.
-            /  \\|||  :  |||//  \
-           /  _||||| -:- |||||-  \
-           |   | \\\  -  /// |   |
-           | \_|  ''\---/''  |   |
-           \  .-\__  `-`  ___/-. /
-         ___`. .'  /--.--\  `. . __
-      ."" '<  `.___\_<|>_/___.'  >'"".
-     | | :  `- \`.;`\ _ /`;.`/ - ` : | |
-     \  \ `-.   \_ __\ /__ _/   .-` /  /
-======`-.____`-.___\_____/___.-`____.-'======
-                   `=---='
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-         佛祖保佑       处处兼容
-###
 
 app = angular.module('myApp', ['ngAnimate', 'ngRoute', 'ngSanitize'])
 
 app.config(['$routeProvider', '$locationProvider',
   ($routeProvider, $locationProvider) ->
     $routeProvider.when('/',
-      templateUrl: 'partials/index.html'
+      templateUrl: 'partials/contact.html'
       controller: IndexCtrl)
     #$locationProvider.html5Mode(true)
     return
@@ -60,30 +38,78 @@ app.directive('ngEnter', ->
     )
 )
 # RESTful 的操作接口
+
+
+_loading = $('#loading')
+
+
 window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) ->
-  $loading = $('#loading')
+  _container = $('#container')
+  _loading.show()
   $scope.persons = []
   $scope.checkIds = []
   $http.get('/api/persons').
   success((data, status, headers, config) ->
-    $loading.hide()
+    _loading.hide()
+    _container.css('opacity', 1)
     console.log data
+
     $scope.persons = data.list.filter((item, i)->
       item.isdel is off
     )
     $scope.count = $scope.persons.length
   )
   $scope.addUser = ->
-    $dialog = $('#dialog')
+    $scope.addOrUpdate = true
     $scope.p = {}
-    $dialog.show().animate({zIndex: 1, left: '40%'}, 200)
     return
   $scope.mergeUser = ->
-    $loading.show()
+    _loading.show()
     setTimeout(->
-      $loading.hide()
+      _loading.hide()
     , 1000)
     return
+  $scope.personCheck = (e, p)->
+    if p.checked
+      p.checked = ''
+    else
+      p.checked = 'on'
+    $scope.calculate()
+    return
+  $scope.checkAll = (e)->
+    if $scope.checkedAll isnt 'on'
+      $scope.checkedPersons = $scope.persons
+      $scope.persons.forEach((item)->
+        item.checked = 'on'
+      )
+      $scope.calculate()
+    else
+      $scope.batchCancel()
+    return
+
+  $scope.batchCancel = ->
+    if $scope.checkedPersons
+      $scope.checkedPersons.forEach((item)->
+        item.checked = ''
+      )
+    $scope.checkedAll = ''
+    $scope.selected = false
+
+  $scope.calculate = ->
+    $scope.checkedPersons = $scope.persons.filter((item)->
+      item.checked
+    )
+    $scope.checkIds = $scope.checkedPersons.map((item)->
+      item.id
+    )
+    console.log $scope.checkIds
+    if $scope.checkIds.length > 0
+      if $scope.checkIds.length is $scope.count
+        $scope.checkedAll = 'on'
+      $scope.selected = true
+    else
+      $scope.selected = false
+
   $scope.modify = (i, $event) ->
     $dialog = $('#dialog')
     return if $event.target.tagName is 'INPUT' or $event.target.className.indexOf('check') > -1
@@ -95,33 +121,9 @@ window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) -
   $scope.refreshUsers = ->
     location.reload()
   $scope.recycle = ->
-    $('.content-header').removeClass('change')
     $('.content').html('<p class="recycle">该功能还未实现</p>')
     return
 
-  $scope.check = (e)->
-    $(e.target).toggleClass('on')
-    $scope.calculate()
-    return
-  $scope.checkAll = (e)->
-    $checkbox = $('.checkbox')
-    if $checkbox.hasClass('on')
-      $checkbox.removeClass('on')
-    else
-      $checkbox.addClass('on')
-    $scope.calculate()
-    return
-  $scope.calculate = ->
-    $checks = $('.checkbox.on', '.list')
-    $scope.checkIds = $.map($checks, (item)->
-      $(item).data('id')
-    )
-    console.log $scope.checkIds
-    $header = $('.content-header')
-    if $scope.checkIds.length > 0
-      $header.addClass('change')
-    else
-      $header.removeClass('change')
   $scope.delete = ->
     $http.post('/api/post',
       ids: $scope.checkIds

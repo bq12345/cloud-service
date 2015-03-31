@@ -188,7 +188,7 @@ ngTouch.factory('$swipe', [function() {
  *
  * @example
     <example module="ngClickExample" deps="angular-touch.js">
-      <file name="index.html">
+      <file name="contact.html">
         <button ng-click="count = count + 1" ng-init="count=0">
           Increment
         </button>
@@ -473,7 +473,7 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
  *
  * @example
     <example module="ngSwipeLeftExample" deps="angular-touch.js">
-      <file name="index.html">
+      <file name="contact.html">
         <div ng-show="!showActions" ng-swipe-left="showActions = true">
           Some list content, like an email in the inbox
         </div>
@@ -506,7 +506,7 @@ ngTouch.directive('ngClick', ['$parse', '$timeout', '$rootElement',
  *
  * @example
     <example module="ngSwipeRightExample" deps="angular-touch.js">
-      <file name="index.html">
+      <file name="contact.html">
         <div ng-show="!showActions" ng-swipe-left="showActions = true">
           Some list content, like an email in the inbox
         </div>
