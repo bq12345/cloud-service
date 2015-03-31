@@ -1,45 +1,61 @@
-<aside class="">
+<aside>
     <h3>便签</h3>
-
-    <div class="part" ng-repeat="n in notes">
-        <div class="hr"></div>
-        <div>
-            <div class="checkbox" data-id="{{n.id}}" ng-click="noteCheck($event)"></div>
-            <div class="title" ng-click="showNote($index)"><title></title>
+    <div class="content">
+        <div class="part" ng-repeat="n in notes">
+            <div class="hr"></div>
+            <div>
+                <div class="checkbox {{n.checked}}" data-id="{{n.id}}" ng-click="noteCheck($event,n)"></div>
+                <div class="title" ng-click="showNote($index)">
+                    <title></title>
+                </div>
             </div>
         </div>
     </div>
+
+    <footer>
+        <button class="btn" ng-click="noteNew($event)">新建</button>
+    </footer>
 </aside>
 
 <div class="content" ng-show="!selected">
     <div class="header">
-        <div class="title">创建于
+        <h4>
+            创建于
             <date></date>
-        </div>
+        </h4>
     </div>
-    <div id="text" class="text" ng-class="{'appear':note}" ng-bind="note.content">
-        {{note.content}}
+    <div class="text" ng-show="!edit" ng-bind-html="note.content"></div>
+    <textarea class="text text-edit" ng-model="note.content" ng-show="edit" autofocus ></textarea>
+
+    <div class="footer" ng-show="!edit">
+        <button class="btn" ng-click="noteEdit($event)">编辑</button>
+        <button class="btn" ng-click="noteDelete(note.id)">删除</button>
     </div>
-    <div class="footer">
-        <button class="btn">删除</button>
-        <button class="btn">取消</button>
+    <div class="footer" ng-show="edit">
+        <button class="btn" ng-click="noteSave(note)">保存</button>
+        <button class="btn" ng-click="noteCancel()">取消</button>
     </div>
 </div>
 
 <!--批处理操作-->
 <div class="col-lg-10 batch-view" ng-show="selected">
     <header>
-        <h3>已选择 {{checkNotes.length}} 条便签</h3>
+        <h4>已选择 {{checkNotes.length}} 条便签</h4>
     </header>
-    <!-- <div class="hr"></div>-->
+    <div class="hr"></div>
     <div class="list">
         <div class="batch-list-item data-list" ng-repeat="n in checkNotes">
-            <div class="title"><title></title>
+            <div class="note-content">
+                {{n.content}}
+            </div>
+            <div class="note-info">
+                {{n.date | dateFilter}}
             </div>
         </div>
     </div>
     <footer>
-
+        <button class="btn" ng-click="batchDelete()">删除</button>
+        <button class="btn" ng-click="batchCancel()">取消</button>
     </footer>
 </div>
 </div>

@@ -1,3 +1,45 @@
+@-webkit-keyframes pop-out {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0);
+  }
+  80% {
+    -webkit-transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+  }
+}
+@-moz-keyframes pop-out {
+  0% {
+    opacity: 0;
+    -moz-transform: scale(0);
+  }
+  80% {
+    -moz-transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    -moz-transform: scale(1);
+  }
+}
+@keyframes pop-out {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  80% {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
 @-webkit-keyframes fadeInLeft {
   0% {
     opacity: 0;
@@ -68,13 +110,17 @@ body {
   background-position: -120px -65px;
 }
 .on {
+  -webkit-animation: pop-out 0.2s ease-in-out;
+  -moz-animation: pop-out 0.2s ease-in-out;
+  -ms-animation: pop-out 0.2s ease-in-out;
+  animation: pop-out 0.2s ease-in-out;
   background-position: -90px -65px !important;
 }
 .hr {
   background: #ddd;
   padding-right: 30px;
   height: 1px;
-  margin: 8px 0 10px;
+  margin: 0 0 10px 8px;
 }
 #loading {
   position: fixed;
@@ -122,13 +168,22 @@ body {
   animation: fadeInLeft 0.2s;
 }
 .btn {
-  height: 30px;
-  padding-bottom: 0;
-  text-align: center;
-  background: url("../images/btn-repeat.gif") repeat-x 0 -1px;
-  border: 1px solid #ddd;
   outline: 0;
+  background: #ffffff;
+  color: #666;
+  border: 1px solid #666;
+  cursor: pointer;
+  display: inline-block;
+  padding: 3px 18px;
+  margin: 0 10px;
+  font-size: 14px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  border-radius: 20px;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
 }
 .btn:hover {
-  background: #fff;
+  color: #31b609;
+  border-color: #31b609;
 }

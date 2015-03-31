@@ -1,5 +1,5 @@
-<div class="main">
-    <aside class="col-lg-2">
+<aside>
+    <div class="wrap">
         <div class="part" ng-click="refresh()"><h4>全部</h4></div>
         <div class="hr"></div>
         <div class="part" ng-click="type(1)"><h5>已接来电</h5></div>
@@ -8,41 +8,43 @@
         <div class="hr"></div>
         <div class="part" ng-click="type(3)"><h5>未接来电</h5></div>
         <div class="hr"></div>
-        <div class="footer">
-            ©2015 BaiQiang
+    </div>
+
+    <footer>©2015 BaiQiang</footer>
+
+</aside>
+
+<div class="content">
+
+    <header>
+        <div class="check">
+            <div class="checkbox {{checkedAll}}" ng-click="checkAll()"></div>
         </div>
-    </aside>
-
-    <div class="col-lg-10 content">
-
-        <div class="content-header">
-            <div class="header-all check">
-                <div class="checkbox" ng-click="checkAll()"></div>
-            </div>
+        <div class="header-wrap" ng-show="!selected">
             <div class="header-name">姓名</div>
             <div class="header-phone">电话</div>
             <div class="header-time">时间</div>
             <div class="header-duration">时长</div>
-            <div class="header-del">
-                <div>已选中{{checkIds.length}}条记录</div>
-                <div class="btn" ng-click="delete()">删除</div>
-            </div>
         </div>
+        <div class="header-del" ng-show="selected">
+            已选中{{checkIds.length}}条记录
+            <button class="btn" ng-click="delete()">删除</button>
 
-        <ul class="list list-unstyled">
-            <li ng-repeat="call in calls" class="data-list">
-                <div class="check">
-                    <div class="checkbox" data-id="{{call.id}}" ng-click="check($event)"></div>
-                    <div class="icon icon-{{call.type}}"></div>
-                </div>
-                <div class="name"><strong>{{call.name}}</strong></div>
-                <div class="number">{{call.number}}</div>
-                <div class="time">{{call.time}}</div>
-                <div class="duration">
-                    <date></date>
-                </div>
-            </li>
-        </ul>
-    </div>
+        </div>
+    </header>
+
+    <ul class="list list-unstyled">
+        <li ng-repeat="call in calls" class="data-list">
+            <div class="check">
+                <div class="checkbox {{call.checked}}" data-id="{{call.id}}" ng-click="callCheck($event,call)"></div>
+                <div class="icon icon-{{call.type}}"></div>
+            </div>
+            <div class="name"><strong>{{call.name}}</strong></div>
+            <div class="number">{{call.number}}</div>
+            <div class="time">{{call.time}}</div>
+            <div class="duration">
+                <date></date>
+            </div>
+        </li>
+    </ul>
 </div>
-<script src="/js/partials/call.js"></script>

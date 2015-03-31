@@ -84,17 +84,17 @@ router.get('/messages.detail', function (req, res) {
 
 router.get('/notes', function (req, res) {
     var tlp = {
-        'count|1-100': 1,
+        'count|20-100': 20,
         'list|1-20': [{
             'id|+1': 1,
             'content': '@paragraph',
-            'date|+1': 1419834099609
+            'date': '@DATE'
         }]
     };
     var data = Mock.mock(tlp);
     setTimeout(function () {
         res.send(data);
-    }, 2000);
+    }, 1000);
 
 });
 

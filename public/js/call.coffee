@@ -28,44 +28,63 @@ app.filter('dateFilter', ->
     str += second + '秒'
     return str
 )
+_loading = $('#loading')
 
 window.CallCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $sce) ->
-  $loading = $('#loading')
+  _container = $('#container')
+  _loading.show()
   $scope.data = []
   $scope.calls = []
   $scope.checkIds = []
   $http.get('/api/calls').
   success((data) ->
-    $loading.hide()
+    _loading.hide()
+    _container.css('opacity', 1)
     $scope.calls = data.list
     $scope.data = $scope.calls
     $scope.count = $scope.calls.length
   )
-  $scope.check = (e)->
-    $(e.target).toggleClass('on')
-    $scope.calculate()
-    return
-  $scope.checkAll = (e)->
-    $checkbox = $('.checkbox')
-    if $checkbox.hasClass('on')
-      $checkbox.removeClass('on')
+  $scope.callCheck = (e, n)->
+    if n.checked
+      n.checked = ''
     else
-      $checkbox.addClass('on')
+      n.checked = 'on'
     $scope.calculate()
     return
+
+  $scope.checkAll = (e)->
+    if $scope.checkedAll isnt 'on'
+      $scope.checkedCalls = $scope.calls
+      $scope.calls.forEach((item)->
+        item.checked = 'on'
+      )
+      $scope.calculate()
+    else
+      $scope.batchCancel()
+    return
+  $scope.batchCancel = ->
+    if $scope.checkedCalls
+      $scope.checkedCalls.forEach((item)->
+        item.checked = ''
+      )
+    $scope.checkedAll = ''
+    $scope.selected = false
   $scope.calculate = ->
-    $checks = $('.checkbox.on', '.list')
-    $scope.checkIds = $.map($checks, (item)->
-      $(item).data('id')
+    $scope.checkedCalls = $scope.calls.filter((item)->
+      item.checked
+    )
+    $scope.checkIds = $scope.checkedCalls.map((item)->
+      item.id
     )
     console.log $scope.checkIds
-    $header = $('.content-header')
     if $scope.checkIds.length > 0
-      $header.addClass('change')
+      if $scope.checkIds.length is $scope.count
+        $scope.checkedAll = 'on'
+      $scope.selected = true
     else
-      $header.removeClass('change')
+      $scope.selected = false
   $scope.delete = ->
-    $http.post('/api/post',
+    $http.post('/api/calls/delete',
       ids: $scope.checkIds
     ).
     success((data)->
@@ -73,6 +92,8 @@ window.CallCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $s
     )
     return
   $scope.type = (type)->
+    $scope.batchCancel()
+
     $scope.calls = $scope.data.filter((item)->
       item.type is type
     )
