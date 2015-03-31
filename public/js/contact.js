@@ -68,6 +68,7 @@
         return $scope.count = $scope.persons.length;
       });
       $scope.addUser = function() {
+        $scope.batchCancel();
         $scope.addOrUpdate = true;
         $scope.p = {};
       };
@@ -77,13 +78,15 @@
           return _loading.hide();
         }, 1000);
       };
-      $scope.personCheck = function(e, p) {
+      $scope.personCheck = function($event, p) {
         if (p.checked) {
           p.checked = '';
         } else {
           p.checked = 'on';
         }
         $scope.calculate();
+        $event.preventDefault();
+        $event.stopPropagation();
       };
       $scope.checkAll = function(e) {
         if ($scope.checkedAll !== 'on') {
@@ -122,18 +125,14 @@
           return $scope.selected = false;
         }
       };
-      $scope.modify = function(i, $event) {
-        var $dialog, person;
-        $dialog = $('#dialog');
-        if ($event.target.tagName === 'INPUT' || $event.target.className.indexOf('check') > -1) {
-          return;
-        }
-        person = $scope.persons[i];
-        $scope.p = person;
-        $dialog.show().animate({
-          zIndex: 1,
-          left: '40%'
-        }, 200);
+      $scope.modify = function(p) {
+        $scope.batchCancel();
+        $scope.addOrUpdate = true;
+        $scope.p = p;
+      };
+      $scope.cancel = function() {
+        $scope.addOrUpdate = false;
+        $scope.p = {};
       };
       $scope.refreshUsers = function() {
         return location.reload();

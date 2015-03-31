@@ -60,6 +60,7 @@ window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) -
     $scope.count = $scope.persons.length
   )
   $scope.addUser = ->
+    $scope.batchCancel()
     $scope.addOrUpdate = true
     $scope.p = {}
     return
@@ -69,12 +70,15 @@ window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) -
       _loading.hide()
     , 1000)
     return
-  $scope.personCheck = (e, p)->
+  #批处理
+  $scope.personCheck = ($event, p)->
     if p.checked
       p.checked = ''
     else
       p.checked = 'on'
     $scope.calculate()
+    $event.preventDefault();
+    $event.stopPropagation();
     return
   $scope.checkAll = (e)->
     if $scope.checkedAll isnt 'on'
@@ -109,15 +113,16 @@ window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) -
       $scope.selected = true
     else
       $scope.selected = false
-
-  $scope.modify = (i, $event) ->
-    $dialog = $('#dialog')
-    return if $event.target.tagName is 'INPUT' or $event.target.className.indexOf('check') > -1
-    person = $scope.persons[i]
-    $scope.p = person
-    $dialog.show().animate({zIndex: 1, left: '40%'}, 200)
+  #list处理
+  $scope.modify = (p) ->
+    $scope.batchCancel()
+    $scope.addOrUpdate = true
+    $scope.p = p
     return
-
+  $scope.cancel =  ->
+    $scope.addOrUpdate = false
+    $scope.p = {}
+    return
   $scope.refreshUsers = ->
     location.reload()
   $scope.recycle = ->

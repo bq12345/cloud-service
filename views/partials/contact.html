@@ -25,7 +25,7 @@
     </div>
 
     <ul class="list list-unstyled">
-        <li ng-repeat="p in persons" class="data-list" ng-click="modify($index,$event)">
+        <li ng-repeat="p in persons" class="data-list" ng-click="modify(p)">
             <div class="check">
                 <div class="checkbox {{p.checked}}" data-id="{{p.id}}" ng-click="personCheck($event,p)"></div>
             </div>
@@ -56,7 +56,7 @@
         </div>
         <div class="footer">
             <input id="save-dialog" type="button" class="btn btn-success" ng-click="save(p)" value="保存"/>
-            <input id="close-dialog" type="button" class="btn btn-default" value="取消"/>
+            <input id="close-dialog" type="button" class="btn btn-default" ng-click="cancel()" value="取消"/>
         </div>
     </div>
     <footer ng-show="selected">
