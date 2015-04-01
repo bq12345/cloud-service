@@ -10,18 +10,12 @@
 
 <% include "./includes/header.html" %>
 
-<div class="row" style="margin-top: 50px;">
-    <div class="row-fluid">
-        <div id="content" class="col-lg-12">
-            <div ng-view></div>
-        </div>
-    </div>
+<div ng-view id="container">
 
 </div>
 <div id="loading">
     <div></div>
 </div>
-
 <% include "./includes/footer.html" %>
 
 <script src="/js/photo.js"></script>

@@ -10,7 +10,7 @@
 (function() {
   var _loading, app;
 
-  app = angular.module('myApp', ['ngAnimate', 'ngRoute', 'ngSanitize']);
+  app = angular.module('myApp', ['ngAnimate', 'ngRoute', 'ngSanitize', 'panel-directive']);
 
   app.config([
     '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -85,7 +85,6 @@
           p.checked = 'on';
         }
         $scope.calculate();
-        $event.preventDefault();
         $event.stopPropagation();
       };
       $scope.checkAll = function(e) {

@@ -45,10 +45,7 @@ window.CallCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $s
     $scope.count = $scope.calls.length
   )
   $scope.callCheck = (e, n)->
-    if n.checked
-      n.checked = ''
-    else
-      n.checked = 'on'
+    if n.checked then n.checked = '' else  n.checked = 'on'
     $scope.calculate()
     return
 

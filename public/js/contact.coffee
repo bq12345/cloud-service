@@ -5,7 +5,7 @@
   @version 1-0-0
 ###
 
-app = angular.module('myApp', ['ngAnimate', 'ngRoute', 'ngSanitize'])
+app = angular.module('myApp', ['ngAnimate', 'ngRoute', 'ngSanitize', 'panel-directive'])
 
 app.config(['$routeProvider', '$locationProvider',
   ($routeProvider, $locationProvider) ->
@@ -72,13 +72,9 @@ window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) -
     return
   #批处理
   $scope.personCheck = ($event, p)->
-    if p.checked
-      p.checked = ''
-    else
-      p.checked = 'on'
+    if p.checked then p.checked = '' else  p.checked = 'on'
     $scope.calculate()
-    $event.preventDefault();
-    $event.stopPropagation();
+    $event.stopPropagation()
     return
   $scope.checkAll = (e)->
     if $scope.checkedAll isnt 'on'
@@ -119,7 +115,7 @@ window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) -
     $scope.addOrUpdate = true
     $scope.p = p
     return
-  $scope.cancel =  ->
+  $scope.cancel = ->
     $scope.addOrUpdate = false
     $scope.p = {}
     return

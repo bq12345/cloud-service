@@ -6,6 +6,8 @@
 
 ### JavaEE应用
 
+### 前后端完全分离
+
 ### 前端MVC/MVVM
 
 ### AngularJS
@@ -17,11 +19,16 @@
 
 ## 开发环境
 
-为保证开发环境的一致性，使用到的node module需保持一致的版本。
+>npm install
 
-为保证开发效率 使用相同的IDE
+为保证开发环境的一致性，使用到的node module最好保持一致的版本。
 
-    
+## CoffeeScript打包
+
+>npm install -g gulp
+
+>gulp
+
 ## 编码规范
 
 ### 文件编码

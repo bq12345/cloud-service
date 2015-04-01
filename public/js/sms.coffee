@@ -47,10 +47,7 @@ window.SmsCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $sc
     )
 
   $scope.personCheck = (e, p)->
-    if p.checked
-      p.checked = ''
-    else
-      p.checked = 'on'
+    if p.checked then p.checked = '' else  p.checked = 'on'
     $scope.calculate()
   $scope.calculate = ->
     $scope.checkedPersons = $scope.persons.filter((item)->

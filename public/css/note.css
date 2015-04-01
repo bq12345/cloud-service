@@ -1862,6 +1862,26 @@ textarea.input-group-sm > .input-group-btn > .btn {
     transform: translateX(0);
   }
 }
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.animated.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
 .animated.fadeInLeft {
   -webkit-animation-name: fadeInLeft;
   -moz-animation-name: fadeInLeft;
@@ -1911,7 +1931,7 @@ body {
   height: 100%;
   top: 0;
   background: #fff;
-  opacity: 0.5;
+  opacity: 0.9;
 }
 #loading div {
   position: absolute;
@@ -1944,11 +1964,17 @@ body {
   background-color: #9f9f9f;
   -webkit-border-radius: 8px;
 }
-.data-list.ng-enter {
+.ng-enter {
   -webkit-animation: fadeInLeft 0.2s;
   -moz-animation: fadeInLeft 0.2s;
   -ms-animation: fadeInLeft 0.2s;
   animation: fadeInLeft 0.2s;
+}
+.ng-leave {
+  -webkit-animation: fadeOut 0.2s;
+  -moz-animation: fadeOut 0.2s;
+  -ms-animation: fadeOut 0.2s;
+  animation: fadeOut 0.2s;
 }
 .btn {
   outline: 0;
@@ -1969,6 +1995,26 @@ body {
 .btn:hover {
   color: #31b609;
   border-color: #31b609;
+}
+.animate-show-hide {
+  padding: 10px;
+  background: white;
+}
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove {
+  -webkit-transition: all linear 0.5s;
+  -moz-transition: all linear 0.5s;
+  -o-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+  display: block !important;
+}
+.animate-show-hide.ng-hide-add.ng-hide-add-active,
+.animate-show-hide.ng-hide-remove {
+  opacity: 0;
+}
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
 }
 .nav {
   display: none;
@@ -1991,9 +2037,9 @@ aside {
   position: relative;
   display: flex;
   flex-flow: column;
+  background: #eaecee;
 }
 aside h3 {
-  background: #eaecee;
   min-height: 40px;
   padding-left: 20px;
   padding-bottom: 20px;
@@ -2001,6 +2047,7 @@ aside h3 {
 }
 aside .content {
   flex: 1;
+  opacity: 1;
   background: #ffffff;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -2041,6 +2088,7 @@ aside footer {
 }
 .content {
   flex: 5;
+  opacity: 0;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -2149,5 +2197,45 @@ aside footer {
 .batch-view footer {
   width: 100%;
   text-align: center;
+  height: 50px;
+}
+.show {
+  opacity: 1;
+}
+.delete-panel a {
+  text-decoration: none;
+}
+.delete-panel .panel-content {
+  position: relative;
+  margin-top: 10%;
+  width: 40%;
+  height: 40%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  padding: 0 10px;
+  border-radius: 10px;
+}
+.delete-panel header {
+  position: relative;
+  padding: 10px 10px 0 10px;
+  height: 50px;
+}
+.delete-panel header:after {
+  content: '';
+  width: 100%;
+  height: 1px;
+  background: #e6e6e6;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.delete-panel .panel-bd {
+  padding: 20px;
+  font-size: 12px;
+  color: #333;
+  overflow: auto;
+}
+.delete-panel footer {
+  position: absolute;
+  bottom: 10px;
   height: 50px;
 }

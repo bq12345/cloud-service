@@ -97,6 +97,31 @@
   }
 }
 
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.animated.fadeOut {
+  -webkit-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+
 .animated.fadeInLeft {
   -webkit-animation-name: fadeInLeft;
   -moz-animation-name: fadeInLeft;
@@ -156,7 +181,7 @@ body {
   height: 100%;
   top: 0;
   background: #fff;
-  opacity: 0.5;
+  opacity: 0.9;
   div {
     position: absolute;
     display: block;
@@ -194,17 +219,20 @@ body {
   -webkit-border-radius: 8px
 }
 
-.data-list {
+//公共的ng-repeat enter&leave
 
-  &.ng-enter {
-    -webkit-animation: fadeInLeft 0.2s;
-    -moz-animation: fadeInLeft 0.2s;
-    -ms-animation: fadeInLeft 0.2s;
-    animation: fadeInLeft 0.2s;
-  }
+&.ng-enter {
+  -webkit-animation: fadeInLeft 0.2s;
+  -moz-animation: fadeInLeft 0.2s;
+  -ms-animation: fadeInLeft 0.2s;
+  animation: fadeInLeft 0.2s;
+}
 
-  &.ng-leave {
-  }
+&.ng-leave {
+  -webkit-animation: fadeOut 0.2s;
+  -moz-animation: fadeOut 0.2s;
+  -ms-animation: fadeOut 0.2s;
+  animation: fadeOut 0.2s;
 }
 
 //公共btn
@@ -228,4 +256,45 @@ body {
     color: #31b609;
     border-color: #31b609;
   }
+}
+
+//公用淡出样式
+.animate-show-hide {
+  padding: 10px;
+  background: white;
+}
+
+.animate-show-hide.ng-hide-add, .animate-show-hide.ng-hide-remove {
+  -webkit-transition: all linear 0.5s;
+  -moz-transition: all linear 0.5s;
+  -o-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+  display: block !important;
+}
+
+.animate-show-hide.ng-hide-add.ng-hide-add-active,
+.animate-show-hide.ng-hide-remove {
+  opacity: 0;
+}
+
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+}
+
+
+//隐藏nav和设置ng-view样式
+
+.nav {
+  display: none;
+}
+
+#container {
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  height: 100%;
+  flex-flow: row;
+  opacity: 0;
+  transition: all 0.5s;
 }

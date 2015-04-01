@@ -1,4 +1,4 @@
-app = angular.module('noteApp', ['ngAnimate', 'ngRoute', 'ngSanitize'])
+app = angular.module('noteApp', ['ngAnimate', 'ngRoute', 'ngSanitize', 'panel-directive'])
 
 app.config(['$routeProvider', '$locationProvider',
   ($routeProvider, $locationProvider) ->
@@ -24,6 +24,25 @@ app.directive('title', ->
   }
 )
 
+#编写一个监听的指令
+app.directive('watcher', ->
+  {
+  restrict: 'A',
+  scope:
+    wSpeed: "@"
+    ,
+  link: ($scope, el, attrs) ->
+    el = angular.element(el)
+    speed = $scope.wSpeed || .1
+    #注意当前的作用域已经改变
+    $scope.$parent.$watch('note.id', (e)->
+      el.removeClass('show')
+      setTimeout(->
+        el.addClass('show')
+      , (speed * 1000))
+    , true)
+  }
+)
 app.filter('lengthFilter', ->
   (input, param) ->
     return  if input and input.length > 20 then input.slice(0, 20) else input
@@ -35,11 +54,13 @@ app.filter('dateFilter', ->
 )
 _loading = $('#loading')
 
-window.NoteCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $sce) ->
+window.NoteCtrl = ['$scope', '$http', '$rootScope', '$location', ($scope, $http, $rootScope, $location, $sce) ->
   _container = $('#container')
   _loading.show()
   $scope.notes = []
   $scope.checkIds = []
+  $scope.paneled = false
+  console.log $rootScope
   $http.get('/api/notes').
   success((data) ->
     _loading.hide()
@@ -49,14 +70,13 @@ window.NoteCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $s
     $scope.note = $scope.notes[0]
   )
 
-  $scope.noteCheck = (e, n)->
-    if n.checked
-      n.checked = ''
-    else
-      n.checked = 'on'
+  $scope.noteCheck = ($event, n)->
+    $event.stopPropagation()
+    if n.checked then n.checked = '' else n.checked = 'on'
     $scope.calculate()
     return
   $scope.showNote = (e)->
+    $scope.edit = false
     $scope.note = $scope.notes[e]
     return
 
@@ -82,10 +102,13 @@ window.NoteCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $s
     )
     return
   $scope.batchCancel = ->
-    $scope.checkNotes.forEach((item)->
-      item.checked = false
-    )
-    $scope.selected = false
+    if $scope.checkNotes
+      $scope.checkNotes.forEach((item)->
+        item.checked = false
+      )
+      $scope.selected = false
+    else
+
     return
 
   #编辑处理
@@ -111,13 +134,18 @@ window.NoteCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $s
     )
     console.log($scope.note)
   $scope.noteDelete = (n)->
-    $http.post('/api/notes/delete',
-      id: n
-    ).
-    success((data)->
-      console.log data
-    )
-  #
+    if $scope.paneled
+      $scope.paneled = false
+      $http.post('/api/notes/delete',
+        id: n
+      ).
+      success((data)->
+        console.log data
+      )
+    else
+      $scope.paneled = true
+  $scope.cancelDelete = (n)->
+    $scope.paneled = false
   $scope.noteCancel = ->
     $scope.edit = false
 ]

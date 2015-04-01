@@ -2,7 +2,7 @@
 (function() {
   var _loading, app;
 
-  app = angular.module('noteApp', ['ngAnimate', 'ngRoute', 'ngSanitize']);
+  app = angular.module('noteApp', ['ngAnimate', 'ngRoute', 'ngSanitize', 'panel-directive']);
 
   app.config([
     '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -29,6 +29,26 @@
     };
   });
 
+  app.directive('watcher', function() {
+    return {
+      restrict: 'A',
+      scope: {
+        wSpeed: "@"
+      },
+      link: function($scope, el, attrs) {
+        var speed;
+        el = angular.element(el);
+        speed = $scope.wSpeed || .1;
+        return $scope.$parent.$watch('note.id', function(e) {
+          el.removeClass('show');
+          return setTimeout(function() {
+            return el.addClass('show');
+          }, speed * 1000);
+        }, true);
+      }
+    };
+  });
+
   app.filter('lengthFilter', function() {
     return function(input, param) {
       if (input && input.length > 20) {
@@ -50,12 +70,14 @@
   _loading = $('#loading');
 
   window.NoteCtrl = [
-    '$scope', '$http', '$location', function($scope, $http, $location, $sce) {
+    '$scope', '$http', '$rootScope', '$location', function($scope, $http, $rootScope, $location, $sce) {
       var _container;
       _container = $('#container');
       _loading.show();
       $scope.notes = [];
       $scope.checkIds = [];
+      $scope.paneled = false;
+      console.log($rootScope);
       $http.get('/api/notes').success(function(data) {
         _loading.hide();
         _container.css('opacity', 1);
@@ -63,7 +85,8 @@
         $scope.notes = data.list;
         return $scope.note = $scope.notes[0];
       });
-      $scope.noteCheck = function(e, n) {
+      $scope.noteCheck = function($event, n) {
+        $event.stopPropagation();
         if (n.checked) {
           n.checked = '';
         } else {
@@ -72,6 +95,7 @@
         $scope.calculate();
       };
       $scope.showNote = function(e) {
+        $scope.edit = false;
         $scope.note = $scope.notes[e];
       };
       $scope.calculate = function() {
@@ -96,10 +120,14 @@
         });
       };
       $scope.batchCancel = function() {
-        $scope.checkNotes.forEach(function(item) {
-          return item.checked = false;
-        });
-        $scope.selected = false;
+        if ($scope.checkNotes) {
+          $scope.checkNotes.forEach(function(item) {
+            return item.checked = false;
+          });
+          $scope.selected = false;
+        } else {
+
+        }
       };
       $scope.noteNew = function() {
         $scope.batchCancel();
@@ -122,11 +150,19 @@
         return console.log($scope.note);
       };
       $scope.noteDelete = function(n) {
-        return $http.post('/api/notes/delete', {
-          id: n
-        }).success(function(data) {
-          return console.log(data);
-        });
+        if ($scope.paneled) {
+          $scope.paneled = false;
+          return $http.post('/api/notes/delete', {
+            id: n
+          }).success(function(data) {
+            return console.log(data);
+          });
+        } else {
+          return $scope.paneled = true;
+        }
+      };
+      $scope.cancelDelete = function(n) {
+        return $scope.paneled = false;
       };
       return $scope.noteCancel = function() {
         return $scope.edit = false;

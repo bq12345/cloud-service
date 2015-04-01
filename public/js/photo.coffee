@@ -22,31 +22,36 @@ app.filter('dateFilter', ->
     date = new Date(input)
     return  (date.getMonth() + 1) + '-' + date.getDay()
 )
-
+_loading = $('#loading')
 window.PhotoCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $sce) ->
-  $loading = $('#loading')
+  _container = $('#container')
+  _loading.show()
   $scope.photos = []
   $scope.checkIds = []
   $http.get('/api/photos').
   success((data) ->
-    $loading.hide()
+    _loading.hide()
+    _container.css('opacity', 1)
     $scope.years = data.list
   )
-  $scope.check = (e)->
-    $(e.target).toggleClass('on')
+  $scope.check = ($event, photo)->
+    $event.stopPropagation()
+    if photo.checked then photo.checked = '' else  photo.checked = 'on'
     $scope.calculate()
     return
   $scope.calculate = ->
-    $checks = $('.checkbox.on', '.content')
-    $scope.checkIds = $.map($checks, (item)->
-      $(item).data('id')
+    $scope.checkPhotos = $scope.photos.filter((item)->
+      item.checked
+    )
+    $scope.checkIds = $scope.checkPhotos.map((item)->
+      item.id
     )
     console.log $scope.checkIds
-    $header = $('.content-header')
     if $scope.checkIds.length > 0
-      $header.fadeIn()
+      $scope.selected = true
     else
-      $header.fadeOut()
+      $scope.selected = false
+
   $scope.delete = ->
     $http.post('/api/post',
       ids: $scope.checkIds

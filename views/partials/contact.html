@@ -34,32 +34,38 @@
             <div class="phone"> {{p.email}}</div>
         </li>
     </ul>
+    <div panel p-open="addOrUpdate">
+        <div id="dialog" class="animate-show-hide" ng-show="addOrUpdate">
 
-    <div id="dialog" ng-show="addOrUpdate">
-        <input type="hidden" value="{{p.id}}"/>
+            <h3>用户详情</h3>
 
-        <div class="div-name">
-            <span class="text-info">姓名</span>
-            <input type="text" ng-model="p.dn" id="input-name" class="form-control"/>
-        </div>
-        <div class="div-mobile">
-            <span class="text-info">手机</span>
-            <input type="text" ng-model="p.mobile" class="form-control"/>
-        </div>
-        <div class="div-phone">
-            <span class="text-info">固话</span>
-            <input type="text" ng-model="p.phone" class="form-control"/>
-        </div>
-        <div class="div-email">
-            <span class="text-info">邮件</span>
-            <input type="text" ng-model="p.email" id="input-email" class="form-control"/>
-        </div>
-        <div class="footer">
-            <input id="save-dialog" type="button" class="btn btn-success" ng-click="save(p)" value="保存"/>
-            <input id="close-dialog" type="button" class="btn btn-default" ng-click="cancel()" value="取消"/>
+
+            <input type="hidden" value="{{p.id}}"/>
+
+            <div class="div-name">
+                <span class="text-info">姓名</span>
+                <input type="text" ng-model="p.dn" id="input-name" class="form-control"/>
+            </div>
+            <div class="div-mobile">
+                <span class="text-info">手机</span>
+                <input type="text" ng-model="p.mobile" class="form-control"/>
+            </div>
+            <div class="div-phone">
+                <span class="text-info">固话</span>
+                <input type="text" ng-model="p.phone" class="form-control"/>
+            </div>
+            <div class="div-email">
+                <span class="text-info">邮件</span>
+                <input type="text" ng-model="p.email" id="input-email" class="form-control"/>
+            </div>
+            <div class="footer">
+                <input id="save-dialog" type="button" class="btn btn-success" ng-click="save(p)" value="保存"/>
+                <input id="close-dialog" type="button" class="btn btn-default" ng-click="cancel()" value="取消"/>
+            </div>
         </div>
     </div>
-    <footer ng-show="selected">
+
+    <footer class="animate-show-hide" ng-show="selected">
         已选中{{checkIds.length}}个联系人
         <button class="btn" ng-click="delete()">删除</button>
         <button class="btn" ng-click="batchCancel()">取消</button>

@@ -2,30 +2,22 @@
 @import "nav";
 @import "global";
 
+#container {
+  overflow: scroll;
+  display: block;
+}
+
 .content {
   background: url("/images/photo/line4.png") repeat-y 70px 0;
-  overflow: hidden;
   position: relative;
-  width: 520px;
   margin: 40px auto 0 100px;
+  flex: 1;
   .content-header {
     display: none;
     position: fixed;
     z-index: 100;
     right: 20px;
     cursor: pointer;
-    .btn {
-      width: 100%;
-      height: 30px;
-      padding-bottom: 0;
-      text-align: center;
-      background: url("../images/btn-repeat.gif") repeat-x 0 -1px;
-      border: 1px solid #ddd;
-      outline: 0;
-      &:hover {
-        background: #fff;
-      }
-    }
   }
   header {
     position: relative;
@@ -39,38 +31,21 @@
   }
   ul {
     list-style: none outside none;
-    overflow: hidden;
     padding: 0;
     li {
       background: url("/images/photo/icon7.png") no-repeat 61px 5px;
       height: 150px;
       position: relative;
       .checkbox {
-        cursor: pointer;
-        margin: 0;
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        right: 206px;
-        bottom: 16px;
-        display: inline-block;
-        background-image: url("/images/icon.png");
-        background-repeat: no-repeat;
-        outline: none;
-        font-size: 16px;
-        overflow: hidden;
-        background-position: -120px -60px;
-
+        left: 16%;
+        bottom: 5px;
       }
-      &:hover{
-        .checkbox{
-          background-position: 0 -60px;
+      &:hover {
+        cursor: pointer;
+        .checkbox {
+          background-position: 0 -65px;
         }
       }
-      .on {
-        background-position: -90px -60px !important;
-      }
-
       .left {
         position: absolute;
         text-align: right;
@@ -85,21 +60,3 @@
   }
 }
 
-#loading {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  background: #fff;
-  opacity: 0.5;
-  div {
-    position: absolute;
-    display: block;
-    z-index: 9999;
-    left: 50%;
-    top: 50px;
-    width: 40px;
-    height: 40px;
-    background: url("data:image/gif;base64,R0lGODlhHgAeAMQAAP////v7+/Pz8+/v7+vr6+fn5+Pj49vb29LS0s7OzsrKyra2tq6urqamppqamoqKin19fXV1dWVlZVlZWUVFRQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFEAAAACwFAAUAFAAUAAAFfiAgjqIyTQqprsBEURM7IlGEiC4sBoIQkBGJJFI6pQC9HlBIZCUFJJpNxvPJrtgs6fB4HLQBAiHwgEAeWkKhQCif02sC1wsW/7T4vMjQaBhkAgkJUCMNDg4NMgkKCgkkhogiBQsLBSKLjSR8fiILDAwLIgOCA1ieoHoAk5UyIQAh+QQFEAAAACwFAAUAFAAUAAAFdyAgjiISRQiprkAkSRE7Hs9ziC4sKtOkkA8I5FE6pQATCmUCFBJZySWJZpPxfLKsdksyNBoGLkAgADQcjgaXTD6n12wvWEwW2++ixSIbIBACJAsMDHssBAUFBIGDhQIJCWUAh4kqeiMJCgoJIn1/WpiaeAOPAzIhACH5BAUQAAAALAUABQAUABQAAAV5ICCO4vE8B6muwANBDzsaTWOILiwiUYSQDYejUTqlABGJJAIUElnJJYlmk/F8sqx2q1osuADFZKJYMBjf7YRCmZjR3HUb4AWLyeC8XpBICLICfyQJCgoJMoGBg4WHAAEEBAEiiYIiA30DIgQFBQQjilqbnXqOkJIsIQAh+QQFEAAAACwFAAUAFAAUAAAFdCAgjqLRNAaprkDjOA1LLsvowuLxPMfMMDWACSV6QCAPH1BmRKpoMoCOF61ar4JEQnBFRCKIhEKRuEYkkoiYbEZHBtpB94u42u+jAIEQkCkmEwokBAUFBDITFBQTg4WHIgJcIomLJHp8kJGSf4FVmpJ4kVEhACH5BAUQAAAALAUABQAUABQAAAV2ICCO47KQaCouDHOqopAkwtq+RtMYZKIoidIL0HA4Gr1fUFU8kgazASy3g1mvWFKAQAhkD4/HgVAoELIPCORBNqPVj233Gz5k73iSoAZDRCIIent8KRESEhGCeyIKExMKIoaIKIsiExQUEyJ+gFeXmXkAjY8wIQAh+QQFEAAAACwFAAUAFAAUAAAFeSAgjqKQJAKprkCiKAk7BgQRiC48LotKFAWCaHAaiBYMRm/0C8qQShLNJgPwqtistpTSGhoNg2DcxTYcjga5XD2nAePtN7yt2xWTiUJ2eDwOJBMUFBMyDxAQD4GDhQAIEREIIoeJJHh6IhESEhEifX9Ympx2jpCSLCEAIfkEBRAAAAAsBQAFABQAFAAABXggII5iQBABqa4AURQESwrC6MKikCT1SNOlUwqQUCgSs5+seFQBZYPdQEatWkmKyURxBSwWgAmFMrkuGIyFmGxGL7Lb7rdLrwMQkQhCZmg0DCQREhIRMg0ODg2Bg4UABw8PByKHiSR4eiIPEBAPIn1/VZqcdo+RMiEAIfkECRAAAAAsBQAFABQAFAAABXcgII6jIJBoKpqmOirTpKysGBBEQE4UNZUnEaFQIOx6P9WwSILJXLeca0qtkhCRCMIqSCQEEYkkYk0oFInwuHxOYLXWgXdgrdtHh8fjMF0sUA8QEA8uCwwMfyOBgyIGDQ0GIoaIJHl7Ig0ODg0jflWZm3cAjpAuIQA7") 50% 50% no-repeat;
-  }
-}

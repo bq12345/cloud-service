@@ -1,29 +1,26 @@
-<div class="main">
-
-    <div class="col-lg-12 content">
-        <div class="content-header">
-            <div class="header-del">
-                <div>已选中{{checkIds.length}}张相片</div>
-                <div class="btn" ng-click="delete()">删除</div>
-            </div>
+<div class="content">
+    <div class="content-header">
+        <div class="header-del" ng-show="selected">
+            <div>已选中{{checkIds.length}}张相片</div>
+            <div class="btn" ng-click="delete()">删除</div>
         </div>
-        <div ng-repeat="year in years">
-            <header>
-                <span class="h1">{{year.value}}</span>
-            </header>
-            <ul>
-                <li ng-repeat="p in year.data">
-                    <div class="checkbox" data-id="{{p.id}}" ng-click="check($event)"></div>
-                    <div class="left">
-                        <date></date>
-                    </div>
+    </div>
+    <div ng-repeat="year in years">
+        <header>
+            <span class="h1">{{year.value}}</span>
+        </header>
+        <ul>
+            <li ng-repeat="p in year.data">
+                <div class="checkbox {{p.checked}}" data-id="{{p.id}}" ng-click="check($event,p)"></div>
+                <div class="left">
+                    <date></date>
+                </div>
 
-                    <div class="right">
-                        <h4>{{p.name}}</h4>
-                        <img data-src="{{p.src}}" src="" alt="{{p.name}}"/>
-                    </div>
-                </li>
-            </ul>
-        </div>
+                <div class="right">
+                    <h4>{{p.name}}</h4>
+                    <img data-src="{{p.src}}" src="" alt="{{p.name}}"/>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>

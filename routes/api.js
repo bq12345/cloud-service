@@ -86,7 +86,7 @@ router.get('/messages/detail', function (req, res) {
 router.get('/notes', function (req, res) {
     var tlp = {
         'count|20-100': 20,
-        'list|1-20': [{
+        'list|20-50': [{
             'id|+1': 1,
             'content': '@paragraph',
             'date': '@DATE'

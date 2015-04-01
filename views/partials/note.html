@@ -1,11 +1,12 @@
 <aside>
     <h3>便签</h3>
+
     <div class="content">
         <div class="part" ng-repeat="n in notes">
             <div class="hr"></div>
-            <div>
+            <div ng-click="showNote($index)">
                 <div class="checkbox {{n.checked}}" data-id="{{n.id}}" ng-click="noteCheck($event,n)"></div>
-                <div class="title" ng-click="showNote($index)">
+                <div class="title">
                     <title></title>
                 </div>
             </div>
@@ -17,7 +18,7 @@
     </footer>
 </aside>
 
-<div class="content" ng-show="!selected">
+<div class="content" ng-show="!selected" watcher w-speed=".2">
     <div class="header">
         <h4>
             创建于
@@ -25,7 +26,7 @@
         </h4>
     </div>
     <div class="text" ng-show="!edit" ng-bind-html="note.content"></div>
-    <textarea class="text text-edit" ng-model="note.content" ng-show="edit" autofocus ></textarea>
+    <textarea class="text text-edit" ng-model="note.content" ng-show="edit" autofocus></textarea>
 
     <div class="footer" ng-show="!edit">
         <button class="btn" ng-click="noteEdit($event)">编辑</button>
@@ -58,4 +59,20 @@
         <button class="btn" ng-click="batchCancel()">取消</button>
     </footer>
 </div>
+</div>
+
+<div class="delete-panel" panel p-open="paneled">
+    <div class="panel-content animate-show-hide" ng-show="paneled">
+        <header>
+            <h4>删除确认</h4>
+        </header>
+        <div class="panel-bd">
+            确定要删除吗？
+        </div>
+        <footer>
+            <a ng-click="noteDelete()" class="btn">确定</a>
+            <a ng-click="cancelDelete()" class="btn">取消</a>
+        </footer>
+    </div>
+
 </div>
