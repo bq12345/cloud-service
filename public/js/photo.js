@@ -17,7 +17,7 @@
     return {
       restrict: 'E',
       replace: true,
-      template: '<span>{{p.date | dateFilter}}</span>'
+      template: '<span>{{day.value | dateFilter}}</span>'
     };
   });
 
@@ -43,8 +43,46 @@
         _container.css('opacity', 1);
         return $scope.years = data.list;
       });
-      $scope.check = function($event, photo) {
-        $event.stopPropagation();
+      $scope.photoCheck = function($event, photo) {
+        console.log($scope);
+        console.log($event);
+        if (photo.checked) {
+          photo.checked = '';
+        } else {
+          photo.checked = 'on';
+        }
+        $scope.calculate();
+      };
+      $scope.calculate = function() {
+        $scope.checkPhotos = $scope.photos.filter(function(item) {
+          return item.checked;
+        });
+        $scope.checkIds = $scope.checkPhotos.map(function(item) {
+          return item.id;
+        });
+        console.log($scope.checkIds);
+        if ($scope.checkIds.length > 0) {
+          return $scope.selected = true;
+        } else {
+          return $scope.selected = false;
+        }
+      };
+      return $scope["delete"] = function() {
+        $http.post('/api/post', {
+          ids: $scope.checkIds
+        }).success(function(data) {
+          return console.log(data);
+        });
+      };
+    }
+  ];
+
+  window.ItemCtrl = [
+    '$scope', '$http', '$location', function($scope, $http, $location, $sce) {
+      $scope.items = [];
+      $scope.photoCheck = function($event, photo) {
+        console.log($scope);
+        console.log($event);
         if (photo.checked) {
           photo.checked = '';
         } else {

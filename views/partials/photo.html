@@ -6,20 +6,25 @@
         </div>
     </div>
     <div ng-repeat="year in years">
-        <header>
+        <header ng-click="photoCheck($event)">
             <span class="h1">{{year.value}}</span>
         </header>
         <ul>
-            <li ng-repeat="p in year.data">
-                <div class="checkbox {{p.checked}}" data-id="{{p.id}}" ng-click="check($event,p)"></div>
-                <div class="left">
+            <li ng-repeat="day in year.date" ng-controller="ItemCtrl">
+                <div class="left" ng-click="photoCheck($event)">
                     <date></date>
                 </div>
+                <ul class="data-list">
+                    <li ng-repeat="item in day.data">
+                        <div class="checkbox {{item.checked}}" data-id="{{item.id}}"
+                             ng-click="photoCheck($event,item)"></div>
 
-                <div class="right">
-                    <h4>{{p.name}}</h4>
-                    <img data-src="{{p.src}}" src="" alt="{{p.name}}"/>
-                </div>
+                        <div class="right">
+                            <h4>{{item.name}}</h4>
+                            <img data-src="{{item.src}}" src="" alt="{{item.name}}"/>
+                        </div>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

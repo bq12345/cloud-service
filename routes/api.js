@@ -37,14 +37,16 @@ router.get('/calls', function (req, res) {
 router.get('/photos', function (req, res) {
     var tlp = {
         'count|1-100': 1,
-        'list|2-6': [{
+        'list|2-5': [{
             'value|2011-2015': 2011,
-            'data|1-20': [{
-                'id|+1': 1,
-                'src': '@image(200x100)',
-                'name': '@first',
-                'date': "@DATE",
-                'size|10-200': 1
+            'date|1-10': [{
+                'value': "@DATE",
+                'data|3-13': [{
+                    'id': '@guid',
+                    'src': '@image(200x100)',
+                    'name': '@first',
+                    'size|10-200': 1
+                }]
             }]
         }]
     };
