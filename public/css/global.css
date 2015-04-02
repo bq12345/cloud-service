@@ -234,9 +234,11 @@ body {
 .animate-show-hide.ng-hide-remove.ng-hide-remove-active {
   opacity: 1;
 }
+/*
 .nav {
   display: none;
 }
+*/
 #container {
   display: flex;
   -webkit-flex-direction: row;
@@ -245,4 +247,10 @@ body {
   flex-flow: row;
   opacity: 0;
   transition: all 0.5s;
+}
+aside h3 {
+  cursor: pointer;
+  min-height: 40px;
+  padding: 20px;
+  margin: 0;
 }

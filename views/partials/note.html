@@ -1,10 +1,9 @@
 <aside>
     <h3>便签</h3>
-
     <div class="content">
         <div class="part" ng-repeat="n in notes">
             <div class="hr"></div>
-            <div ng-click="showNote($index)">
+            <div ng-click="showNote(n)">
                 <div class="checkbox {{n.checked}}" data-id="{{n.id}}" ng-click="noteCheck($event,n)"></div>
                 <div class="title">
                     <title></title>
@@ -26,7 +25,9 @@
         </h4>
     </div>
     <div class="text" ng-show="!edit" ng-bind-html="note.content"></div>
-    <textarea class="text text-edit" ng-model="note.content" ng-show="edit" autofocus></textarea>
+    <div contenteditable="true" class="text text-edit" ng-model="note.content" ng-show="edit" autofocus tabindex="1">
+        {{note.content}}
+    </div>
 
     <div class="footer" ng-show="!edit">
         <button class="btn" ng-click="noteEdit($event)">编辑</button>

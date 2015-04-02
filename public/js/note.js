@@ -94,9 +94,9 @@
         }
         $scope.calculate();
       };
-      $scope.showNote = function(e) {
+      $scope.showNote = function(n) {
         $scope.edit = false;
-        $scope.note = $scope.notes[e];
+        $scope.note = $scope.notes[n.id];
       };
       $scope.calculate = function() {
         $scope.checkNotes = $scope.notes.filter(function(item) {

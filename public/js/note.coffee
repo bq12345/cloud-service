@@ -75,9 +75,9 @@ window.NoteCtrl = ['$scope', '$http', '$rootScope', '$location', ($scope, $http,
     if n.checked then n.checked = '' else n.checked = 'on'
     $scope.calculate()
     return
-  $scope.showNote = (e)->
+  $scope.showNote = (n)->
     $scope.edit = false
-    $scope.note = $scope.notes[e]
+    $scope.note = $scope.notes[n.id]
     return
 
   $scope.calculate = ->

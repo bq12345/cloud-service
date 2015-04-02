@@ -282,12 +282,13 @@ body {
   opacity: 1;
 }
 
-
 //隐藏nav和设置ng-view样式
 
+/*
 .nav {
   display: none;
 }
+*/
 
 #container {
   display: flex;
@@ -297,4 +298,18 @@ body {
   flex-flow: row;
   opacity: 0;
   transition: all 0.5s;
+}
+
+//导航区样式
+
+aside {
+  h3 {
+    cursor: pointer;
+    min-height: 40px;
+    padding: 20px;
+    margin: 0;
+    &:hover {
+      
+    }
+  }
 }
