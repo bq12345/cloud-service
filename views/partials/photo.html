@@ -1,31 +1,40 @@
 <div class="content">
-    <div class="content-header">
-        <div class="header-del" ng-show="selected">
-            <div>已选中{{checkIds.length}}张相片</div>
-            <div class="btn" ng-click="delete()">删除</div>
-        </div>
+    <div class="delete animate-show-hide" ng-show="selected">
+        <div>已选中{{checkIds.length}}张相片</div>
+        <button class="btn" ng-click="delete()">删除</button>
+        <button class="btn" ng-click="cancel()">取消</button>
     </div>
     <div ng-repeat="year in years">
-        <header ng-click="photoCheck($event)">
+        <header>
             <span class="h1">{{year.value}}</span>
         </header>
         <ul>
-            <li ng-repeat="day in year.date" ng-controller="ItemCtrl">
-                <div class="left" ng-click="photoCheck($event)">
+            <li ng-repeat="day in year.date">
+                <div class="left">
                     <date></date>
                 </div>
                 <ul class="data-list">
                     <li ng-repeat="item in day.data">
                         <div class="checkbox {{item.checked}}" data-id="{{item.id}}"
                              ng-click="photoCheck($event,item)"></div>
-
                         <div class="right">
-                            <h4>{{item.name}}</h4>
-                            <img data-src="{{item.src}}" src="" alt="{{item.name}}"/>
+                            <p>{{item.name}}</p>
+
+                            <div class="img">
+                                <img data-src="{{item.src}}" src="" alt="{{item.name}}"
+                                     ng-click="photoShow($event,item)"/>
+                            </div>
                         </div>
                     </li>
                 </ul>
             </li>
         </ul>
     </div>
+</div>
+
+<div class="show-panel" ng-show="photo">
+    <div class="photo">
+        <img data-src="{{photo.src}}" src="" alt="{{photo.name}}">
+    </div>
+    <div class="close" ng-click="photoShowCancel()"></div>
 </div>

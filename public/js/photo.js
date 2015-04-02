@@ -36,80 +36,57 @@
       var _container;
       _container = $('#container');
       _loading.show();
-      $scope.photos = [];
+      $scope.checkPhotos = [];
+      $scope.photo = false;
       $scope.checkIds = [];
       $http.get('/api/photos').success(function(data) {
         _loading.hide();
         _container.css('opacity', 1);
         return $scope.years = data.list;
       });
+      $scope.photoShow = function($event, photo) {
+        return $scope.photo = photo;
+      };
+      $scope.photoShowCancel = function() {
+        return $scope.photo = false;
+      };
       $scope.photoCheck = function($event, photo) {
-        console.log($scope);
-        console.log($event);
+        $event.stopPropagation();
         if (photo.checked) {
           photo.checked = '';
+          $scope.checkPhotos = $scope.checkPhotos.filter(function(item) {
+            return item.id !== photo.id;
+          });
         } else {
           photo.checked = 'on';
+          $scope.checkPhotos.push(photo);
         }
-        $scope.calculate();
+        return $scope.calculate();
       };
       $scope.calculate = function() {
-        $scope.checkPhotos = $scope.photos.filter(function(item) {
-          return item.checked;
-        });
         $scope.checkIds = $scope.checkPhotos.map(function(item) {
           return item.id;
         });
-        console.log($scope.checkIds);
         if ($scope.checkIds.length > 0) {
+          console.log($scope.checkIds);
           return $scope.selected = true;
         } else {
           return $scope.selected = false;
         }
       };
-      return $scope["delete"] = function() {
+      $scope["delete"] = function() {
         $http.post('/api/post', {
           ids: $scope.checkIds
         }).success(function(data) {
           return console.log(data);
         });
       };
-    }
-  ];
-
-  window.ItemCtrl = [
-    '$scope', '$http', '$location', function($scope, $http, $location, $sce) {
-      $scope.items = [];
-      $scope.photoCheck = function($event, photo) {
-        console.log($scope);
-        console.log($event);
-        if (photo.checked) {
-          photo.checked = '';
-        } else {
-          photo.checked = 'on';
-        }
+      return $scope.cancel = function() {
+        $scope.checkPhotos.forEach(function(item) {
+          return item.checked = '';
+        });
+        $scope.checkPhotos = [];
         $scope.calculate();
-      };
-      $scope.calculate = function() {
-        $scope.checkPhotos = $scope.photos.filter(function(item) {
-          return item.checked;
-        });
-        $scope.checkIds = $scope.checkPhotos.map(function(item) {
-          return item.id;
-        });
-        console.log($scope.checkIds);
-        if ($scope.checkIds.length > 0) {
-          return $scope.selected = true;
-        } else {
-          return $scope.selected = false;
-        }
-      };
-      return $scope["delete"] = function() {
-        $http.post('/api/post', {
-          ids: $scope.checkIds
-        }).success(function(data) {
-          return console.log(data);
-        });
       };
     }
   ];

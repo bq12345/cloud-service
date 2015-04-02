@@ -26,7 +26,8 @@ _loading = $('#loading')
 window.PhotoCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $sce) ->
   _container = $('#container')
   _loading.show()
-  $scope.photos = []
+  $scope.checkPhotos = []
+  $scope.photo = false
   $scope.checkIds = []
   $http.get('/api/photos').
   success((data) ->
@@ -34,23 +35,28 @@ window.PhotoCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $
     _container.css('opacity', 1)
     $scope.years = data.list
   )
+
+  $scope.photoShow = ($event, photo)->
+    $scope.photo = photo
+  $scope.photoShowCancel = ->
+    $scope.photo = false
   $scope.photoCheck = ($event, photo)->
-    console.log $scope
-    console.log $event
-    #console.log photo
-    #$event.stopPropagation()
-    if photo.checked then photo.checked = '' else  photo.checked = 'on'
+    $event.stopPropagation()
+    if photo.checked
+      photo.checked = ''
+      $scope.checkPhotos = $scope.checkPhotos.filter((item)->
+        item.id isnt photo.id
+      )
+    else
+      photo.checked = 'on'
+      $scope.checkPhotos.push(photo)
     $scope.calculate()
-    return
   $scope.calculate = ->
-    $scope.checkPhotos = $scope.photos.filter((item)->
-      item.checked
-    )
     $scope.checkIds = $scope.checkPhotos.map((item)->
       item.id
     )
-    console.log $scope.checkIds
     if $scope.checkIds.length > 0
+      console.log $scope.checkIds
       $scope.selected = true
     else
       $scope.selected = false
@@ -63,38 +69,11 @@ window.PhotoCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $
       console.log data
     )
     return
-]
-
-window.ItemCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $sce) ->
-
-  $scope.items = []
-  $scope.photoCheck = ($event, photo)->
-    console.log $scope
-    console.log $event
-    #console.log photo
-    #$event.stopPropagation()
-    if photo.checked then photo.checked = '' else  photo.checked = 'on'
+  $scope.cancel = ->
+    $scope.checkPhotos.forEach((item)->
+      item.checked = ''
+    )
+    $scope.checkPhotos = []
     $scope.calculate()
-    return
-  $scope.calculate = ->
-    $scope.checkPhotos = $scope.photos.filter((item)->
-      item.checked
-    )
-    $scope.checkIds = $scope.checkPhotos.map((item)->
-      item.id
-    )
-    console.log $scope.checkIds
-    if $scope.checkIds.length > 0
-      $scope.selected = true
-    else
-      $scope.selected = false
-
-  $scope.delete = ->
-    $http.post('/api/post',
-      ids: $scope.checkIds
-    ).
-    success((data)->
-      console.log data
-    )
     return
 ]

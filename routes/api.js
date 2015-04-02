@@ -44,7 +44,7 @@ router.get('/photos', function (req, res) {
                 'data|3-13': [{
                     'id': '@guid',
                     'src': '@image(200x100)',
-                    'name': '@first',
+                    'name': '@first' + '.jpg',
                     'size|10-200': 1
                 }]
             }]
