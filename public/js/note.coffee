@@ -1,3 +1,10 @@
+###!
+  Copyright © 2015. All rights reserved.
+  @file note.coffee
+  @author baiqiang
+  @version 1-0-0
+###
+
 app = angular.module('noteApp', ['ngAnimate', 'ngRoute', 'ngSanitize', 'panel-directive'])
 
 app.config(['$routeProvider', '$locationProvider',

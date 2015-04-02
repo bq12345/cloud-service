@@ -1,3 +1,10 @@
+###!
+  Copyright © 2015. All rights reserved.
+  @file call.coffee
+  @author baiqiang
+  @version 1-0-0
+###
+
 app = angular.module('callApp', ['ngAnimate', 'ngRoute', 'ngSanitize'])
 
 app.config(['$routeProvider', '$locationProvider',

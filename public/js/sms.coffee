@@ -1,3 +1,10 @@
+###!
+  Copyright © 2015. All rights reserved.
+  @file sms.coffee
+  @author baiqiang
+  @version 1-0-0
+###
+
 app = angular.module('smsApp', ['ngAnimate', 'ngRoute', 'ngSanitize'])
 
 app.config(['$routeProvider', '$locationProvider',

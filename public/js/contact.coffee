@@ -1,6 +1,6 @@
 ###!
-  Copyright baiqiang. All rights reserved.
-  @file app.coffee
+  Copyright © 2015. All rights reserved.
+  @file contact.coffee
   @author baiqiang
   @version 1-0-0
 ###
