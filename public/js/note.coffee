@@ -127,7 +127,6 @@ window.NoteCtrl = ['$scope', '$http', '$rootScope', '$location', ($scope, $http,
       "content": "",
       "date": new Date().getTime()
 
-
   $scope.noteEdit = ()->
     $scope.edit = true
 

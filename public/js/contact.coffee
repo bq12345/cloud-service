@@ -39,7 +39,6 @@ app.directive('ngEnter', ->
 )
 # RESTful 的操作接口
 
-
 _loading = $('#loading')
 
 
@@ -65,6 +64,12 @@ window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) -
     $scope.p = {}
     return
   $scope.mergeUser = ->
+    _loading.show()
+    setTimeout(->
+      _loading.hide()
+    , 1000)
+    return
+  $scope.importUser = ->
     _loading.show()
     setTimeout(->
       _loading.hide()

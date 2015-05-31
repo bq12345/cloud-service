@@ -249,8 +249,15 @@ body {
   transition: all 0.5s;
 }
 aside h3 {
+  text-indent: 20px;
   cursor: pointer;
-  min-height: 40px;
-  padding: 20px;
+  height: 50px;
+  color: #444;
+  min-height: 50px;
+  line-height: 50px;
+  transition: color .2s;
   margin: 0;
+}
+aside h3:hover {
+  color: #0f0f0f;
 }
