@@ -58,12 +58,12 @@
       _loading.show();
       $scope.persons = [];
       $scope.checkIds = [];
-      $http.get('/api/persons').success(function(data, status, headers, config) {
+      $http.get('/api/contacts').success(function(data, status, headers, config) {
         _loading.hide();
         _container.css('opacity', 1);
         console.log(data);
         $scope.persons = data.list.filter(function(item, i) {
-          return item.isdel === false;
+          return item.del === false;
         });
         return $scope.count = $scope.persons.length;
       });
@@ -127,6 +127,7 @@
           }
           return $scope.selected = true;
         } else {
+          $scope.checkedAll = '';
           return $scope.selected = false;
         }
       };
@@ -146,14 +147,14 @@
         $('.content').html('<p class="recycle">该功能还未实现</p>');
       };
       $scope["delete"] = function() {
-        $http.post('/api/post', {
+        $http.post('/api/contact/delete', {
           ids: $scope.checkIds
         }).success(function(data) {
           return console.log(data);
         });
       };
       return $scope.save = function(p) {
-        $http.post('/api/cu.do', p).success(function(data) {
+        $http.post('/api/contact/save', p).success(function(data) {
           return $location.url('/');
         });
       };

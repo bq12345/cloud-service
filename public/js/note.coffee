@@ -19,8 +19,20 @@ app.directive('date', ->
   {
   restrict: 'E',
   replace: true,
-  template: '<span>{{note.date | dateFilter}}</span>'
+  template: '<span>{{note.time | dateFilter}}</span>'
   }
+)
+
+app.filter('dateFilter', ->
+  (input, param) ->
+    str = ''
+    hour = ~~(input / 3600)
+    minute = ~~((input - hour * 3600) / 60)
+    second = input - hour * 3600 - minute * 60
+    if hour > 0 then str += hour + '小时'
+    if minute > 0 then str += minute + '分'
+    str += second + '秒'
+    return str
 )
 
 app.directive('title', ->

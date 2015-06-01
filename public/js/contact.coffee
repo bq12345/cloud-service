@@ -47,14 +47,14 @@ window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) -
   _loading.show()
   $scope.persons = []
   $scope.checkIds = []
-  $http.get('/api/persons').
+  $http.get('/api/contacts').
   success((data, status, headers, config) ->
     _loading.hide()
     _container.css('opacity', 1)
     console.log data
 
     $scope.persons = data.list.filter((item, i)->
-      item.isdel is off
+      item.del is off
     )
     $scope.count = $scope.persons.length
   )
@@ -113,6 +113,7 @@ window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) -
         $scope.checkedAll = 'on'
       $scope.selected = true
     else
+      $scope.checkedAll = ''
       $scope.selected = false
   #list处理
   $scope.modify = (p) ->
@@ -131,7 +132,7 @@ window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) -
     return
 
   $scope.delete = ->
-    $http.post('/api/post',
+    $http.post('/api/contact/delete',
       ids: $scope.checkIds
     ).
     success((data)->
@@ -139,7 +140,7 @@ window.IndexCtrl = ['$scope', '$http', '$location', ($scope, $http, $location) -
     )
     return
   $scope.save = (p)->
-    $http.post('/api/cu.do', p).
+    $http.post('/api/contact/save', p).
     success((data)->
       $location.url('/')
     )

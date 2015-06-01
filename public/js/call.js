@@ -110,10 +110,10 @@
         }
       };
       $scope["delete"] = function() {
-        $http.post('/api/calls/delete', {
+        $http.post('/api/call/delete', {
           ids: $scope.checkIds
         }).success(function(data) {
-          return console.log(data);
+          return $scope.refresh();
         });
       };
       $scope.type = function(type) {

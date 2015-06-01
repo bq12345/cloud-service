@@ -88,11 +88,12 @@ window.CallCtrl = ['$scope', '$http', '$location', ($scope, $http, $location, $s
     else
       $scope.selected = false
   $scope.delete = ->
-    $http.post('/api/calls/delete',
+    $http.post('/api/call/delete',
       ids: $scope.checkIds
     ).
     success((data)->
-      console.log data
+      #$location.url('/')
+      $scope.refresh()
     )
     return
   $scope.type = (type)->
