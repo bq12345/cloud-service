@@ -9,3 +9,5 @@ bak
 *.map
 *.min.js
 build/
+
+#test
