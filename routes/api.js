@@ -2,16 +2,16 @@ var express = require('express');
 var router = express.Router();
 var Mock = require('mockjs');
 /* GET users listing. */
-router.get('/persons', function (req, res) {
+router.get('/contacts', function (req, res) {
     var tlp = {
         'count|1-100': 1,
         'list|1-100': [{
             'id|+1': 1,
-            'isdel': '@BOOLEAN',
-            'dn': '@name',
+            'del': '@BOOLEAN',
+            'name': '@name',
             'mobile|1': [13512345678, 18600000000],
-            'phone|1': ["029-88888888", "10086"],
-            'email|1': ["18740414439@139.com", "1075707996@qq.com"],
+            'tel|1': ["029-88888888", "10086"],
+            'mail|1': ["18740414439@139.com", "1075707996@qq.com"],
             'date': "@DATE"
         }]
     };
@@ -25,7 +25,7 @@ router.get('/calls', function (req, res) {
             'id|+1': 1,
             'duration|55-7200': 1,
             'name': '@name',
-            'number|1': [13512345678, 18600000000],
+            'phone|1': [13512345678, 18600000000],
             'time': "@DATETIME",
             'type|1-4': 1
         }]
@@ -91,7 +91,7 @@ router.get('/notes', function (req, res) {
         'list|20-50': [{
             'id|+1': 1,
             'content': '@paragraph',
-            'date': '@DATE'
+            'time': '@DATE'
         }]
     };
     var data = Mock.mock(tlp);

@@ -248,8 +248,7 @@ body {
   opacity: 0;
   transition: all 0.5s;
 }
-aside h3 {
-  text-indent: 20px;
+aside h4 {
   cursor: pointer;
   height: 50px;
   color: #444;
@@ -258,6 +257,6 @@ aside h3 {
   transition: color .2s;
   margin: 0;
 }
-aside h3:hover {
+aside h4:hover {
   color: #0f0f0f;
 }

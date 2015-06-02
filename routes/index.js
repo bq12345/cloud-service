@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    res.render('contact.html', {title: '通讯录', items: [1, 2, 3]});
+    res.render('index.html', {title: '云服务', toekn: 'k4ss5s4f'});
 });
 router.get('/contact.html', function (req, res) {
     res.render('contact.html', {title: '通讯录', items: [1, 2, 3]});
