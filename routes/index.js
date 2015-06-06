@@ -24,7 +24,9 @@ router.get('/photo.html', function (req, res) {
 router.get('/note.html', function (req, res) {
     res.render('note.html', {title: '便签', token: 123456});
 });
-
+router.get('/device.html', function (req, res) {
+    res.render('device.html', {title: '我的设备', key: 'feeda98b6d006ee36e7f6f92b4f09cb5'});
+});
 router.partials = function (req, res) {
     var name = req.params.name;
     res.render('partials/' + name, {});
